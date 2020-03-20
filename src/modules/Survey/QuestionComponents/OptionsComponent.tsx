@@ -20,10 +20,10 @@ export default function OptionsComponent(props: OptionProps) {
 
     const makeCallback = () => {
         setResultCallback({
-            question_number: questionNumber,
-            choice_type: question.choice_type,
+            questionNumber: questionNumber,
+            choiceType: question.choiceType,
             choice: value,
-            extra_info: extraInfo.length > 0 ? extraInfo : undefined
+            extraInfo: extraInfo.length > 0 ? extraInfo : undefined
         })
     };
 

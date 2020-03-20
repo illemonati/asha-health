@@ -18,7 +18,7 @@ export default function SurveyComponent(props: SurveyComponentProps) {
 
     const updateQuestionResults = (result: QuestionResult) => {
         setQuestionResults(prevState => {
-            prevState[result.question_number] = result;
+            prevState[result.questionNumber] = result;
             return prevState;
         });
     };
@@ -41,19 +41,19 @@ export default function SurveyComponent(props: SurveyComponentProps) {
                 let optionsElement: any = null;
 
 
-                if (question.choice_type === "options") {
+                if (question.choiceType === "options") {
                     optionsElement = (
                         <OptionsComponent question={question} number={i} setResultCallback={updateQuestionResults}/>
                     );
-                } else if (question.choice_type === "textfield") {
+                } else if (question.choiceType === "textfield") {
                     optionsElement = (
                         <TextfieldInputComponent question={question} number={i} setResultCallback={updateQuestionResults}/>
                     );
-                } else if (question.choice_type === "slider") {
+                } else if (question.choiceType === "slider") {
                     optionsElement = (
                         <SliderInputComponent question={question} number={i} setResultCallback={updateQuestionResults}/>
                     );
-                } else if (question.choice_type === "checkboxs") {
+                } else if (question.choiceType === "checkboxs") {
                     optionsElement = (
                         <CheckBoxsInputComponent question={question} number={i} setResultCallback={updateQuestionResults}/>
                     );

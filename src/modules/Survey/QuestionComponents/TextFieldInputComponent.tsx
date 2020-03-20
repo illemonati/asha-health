@@ -8,9 +8,9 @@ export default function TextfieldInputComponent(props: OptionProps) {
 
     const makeCallback = () => {
         props.setResultCallback({
-            question_number: props.number,
-            choice_type: props.question.choice_type,
-            text_input_value: val
+            questionNumber: props.number,
+            choiceType: props.question.choiceType,
+            textInputValue: val
         });
     };
 

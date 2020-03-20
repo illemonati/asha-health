@@ -2,13 +2,13 @@
 export type QuestionResults = Array<QuestionResult>;
 
 export interface QuestionResult {
-    question_number: number,
-    choice_type: string,
+    questionNumber: number,
+    choiceType: string,
     choice?: string|ChoiceType,
     choices?: Array<string|ChoiceType>,
-    slider_value?: number,
-    text_input_value?: string,
-    extra_info?: string
+    sliderValue?: number,
+    textInputValue?: string,
+    extraInfo?: string
 }
 
 
@@ -17,8 +17,8 @@ export type Questions = Array<Question>;
 
 export interface Question {
     question: string,
-    choice_type: string,
-    slider_config?: SliderConfig,
+    choiceType: string,
+    sliderConfig?: SliderConfig,
     choices?: Array<string|ChoiceType>,
 }
 
@@ -32,8 +32,8 @@ export interface SliderConfig {
     start: number,
     end: number,
     step: number,
-    no_range?: boolean,
-    text_options?: Array<string>
+    noRange?: boolean,
+    textOptions?: Array<string>
     marks?: boolean
 }
 

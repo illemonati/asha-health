@@ -15,10 +15,10 @@ export default function CheckBoxsInputComponent(props: OptionProps) {
 
     const makeCallback = () => {
         props.setResultCallback({
-            question_number: props.number,
-            choice_type: props.question.choice_type,
+            questionNumber: props.number,
+            choiceType: props.question.choiceType,
             choices: choices,
-            extra_info: extraInfo.length > 0 ? extraInfo : undefined
+            extraInfo: extraInfo.length > 0 ? extraInfo : undefined
         });
     };
 

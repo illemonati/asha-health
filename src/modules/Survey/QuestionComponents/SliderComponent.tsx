@@ -6,10 +6,10 @@ import {OptionProps} from "./OptionProps";
 
 export default function SliderInputComponent(props: OptionProps) {
 
-    const config = props.question.slider_config as SliderConfig;
+    const config = props.question.sliderConfig as SliderConfig;
     const [sliderVal, setSliderVal] = useState(config.start);
     function valuetext(value: number) {
-        return config.text_options ? config.text_options[value] : `${value}`;
+        return config.textOptions ? config.textOptions[value] : `${value}`;
     }
 
     function handleChange(e: any, newValue: number | number[]) {
@@ -26,9 +26,9 @@ export default function SliderInputComponent(props: OptionProps) {
 
     const makeCallback = () => {
         props.setResultCallback({
-            question_number: props.number,
-            choice_type: props.question.choice_type,
-            slider_value: sliderVal
+            questionNumber: props.number,
+            choiceType: props.question.choiceType,
+            sliderValue: sliderVal
         })
     };
 
@@ -46,7 +46,7 @@ export default function SliderInputComponent(props: OptionProps) {
     return (
         <Box>
             <Typography gutterBottom>
-                {config.no_range ? `${valuetext(sliderVal)}` : `${config.start} - ${config.end}`}
+                {config.noRange ? `${valuetext(sliderVal)}` : `${config.start} - ${config.end}`}
                 <br />
                 <br />
                 <br />
