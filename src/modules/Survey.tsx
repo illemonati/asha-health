@@ -1,7 +1,17 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 
 import questions from './questions.json';
-import {Box, FormControlLabel, Radio, Slider, TextField, Container, Typography, RadioGroup} from "@material-ui/core";
+import {
+    Box,
+    FormControlLabel,
+    Radio,
+    Slider,
+    TextField,
+    Container,
+    Typography,
+    RadioGroup,
+    FormGroup, Checkbox
+} from "@material-ui/core";
 
 
 
@@ -28,21 +38,20 @@ function OptionsComponent(props: OptionProps) {
             <RadioGroup aria-label="Choices" value={value} onChange={changeHandler}>
                 {/*
                 //@ts-ignore */}
-                {question.choices.map((choice) => {
-                    console.log(typeof choice);
+                {question.choices.map((choice, i) => {
                     if (typeof choice === "string") {
                         return (
-                            <FormControlLabel control={<Radio />} label={choice} value={choice}/>
+                            <FormControlLabel control={<Radio />} label={choice} value={choice} key={i}/>
                             // <div></div>
                         )
                     } else if (choice.type === "textfield") {
 
                         const textInput = (
-                            <TextField style={{width: "100%"}} label={choice.name} disabled={value !== choice.name} />
+                            <TextField style={{width: "100%"}} label={choice.name} disabled={value !== choice.name} key={i} />
                         );
 
                         return (
-                            <FormControlLabel control={<Radio/>} label={textInput} value={choice.name}/>
+                            <FormControlLabel control={<Radio/>} label={textInput} value={choice.name} key={i}/>
                         )
                     }
                     return null;
@@ -56,30 +65,58 @@ function OptionsComponent(props: OptionProps) {
 interface SliderConfig {
     start: number,
     end: number,
-    step: number
+    step: number,
+    norange?: boolean,
+    text_options?: Array<string>
+    marks?: boolean
+}
+
+
+interface SliderMark {
+    value: number,
+    label: string,
 }
 
 
 function SliderInputComponent(props: OptionProps) {
 
-    const range = props.question.range as SliderConfig;
-
+    const config = props.question.sliderconfig as SliderConfig;
+    const [sliderVal, setSliderVal] = useState(0);
     function valuetext(value: number) {
-        return `${value}`;
+        return config.text_options ? config.text_options[value] : `${value}`;
     }
+
+    function handleChange(e: any, newValue: number | number[]) {
+        setSliderVal(newValue as number);
+    }
+
+    let marks = new Array<SliderMark>();
+    for (let i = config.start; i < config.end; ++i) {
+        marks.push({
+           value: i,
+           label: valuetext(i)
+        });
+    }
+
 
     return (
         <Box>
             <Typography gutterBottom>
-                {`${range.start} - ${range.end}`}
+                {config.norange ? `${valuetext(sliderVal)}` : `${config.start} - ${config.end}`}
+                <br />
+                <br />
+                <br />
                 <Slider
                     defaultValue={0}
-                    step={range.step}
-                    min={range.start}
-                    max={range.end}
+                    step={config.step}
+                    min={config.start}
+                    max={config.end}
                     getAriaValueText={valuetext}
                     valueLabelDisplay="auto"
-                    marks
+                    aria-labelledby="discrete-slider-always"
+                    value={sliderVal}
+                    onChange={handleChange}
+                    marks={config.marks ? marks : []}
 
                 />
             </Typography>
@@ -101,6 +138,44 @@ function TextfieldInputComponent(props: OptionProps) {
 }
 
 
+function CheckBoxInputComponent(props: OptionProps) {
+
+    return (
+        <Box>
+            <FormGroup>
+                {/*
+                //@ts-ignore */}
+                {props.question.choices.map((choice, i) => {
+                    console.log(typeof choice);
+                    if (typeof choice === "string") {
+                        return (
+                            <FormControlLabel
+                                control={< Checkbox/>}
+                                label={choice}
+                                key={i}
+                            />
+                        )
+                    } else if (choice.type === "textfield") {
+
+                        const textInput = (
+                            <TextField style={{width: "100%"}} label={choice.name} key={i}/>
+                        );
+
+                        return (
+                            <FormControlLabel control={<Checkbox/>} label={textInput} value={choice.name} key={i}/>
+                        )
+                    }
+                    return null;
+
+                })}
+            </FormGroup>
+        </Box>
+    )
+
+
+}
+
+
 
 export default function SurveyComponent() {
     return(
@@ -119,22 +194,27 @@ export default function SurveyComponent() {
                     if (question.choicetype === "options") {
                         optionsElement = (
                             <OptionsComponent question={question} number={i}/>
-                        )
+                        );
                     } else if (question.choicetype === "textfield") {
                         optionsElement = (
                             <TextfieldInputComponent question={question} number={i}/>
-                        )
+                        );
                     } else if (question.choicetype === "slider") {
                         optionsElement = (
                             <SliderInputComponent question={question} number={i}/>
-                        )
+                        );
+                    } else if (question.choicetype === "checkboxs") {
+                        optionsElement = (
+                            <CheckBoxInputComponent question={question} number={i}/>
+                        );
                     }
 
 
                     return (
-                        <Box>
+                        <Box key={i}>
                             <Typography variant="h5">{` ${i+1}. ${question.question}`}</Typography>
                             <br />
+
                             {optionsElement}
                             <br />
                             <br />

@@ -2,10 +2,11 @@
   {
     "question": "On a scale of 1 to 10, how healthy do you consider yourself?",
     "choicetype": "slider",
-    "range": {
+    "sliderconfig": {
       "start": 0,
       "end": 10,
-      "step": 1
+      "step": 1,
+      "marks": true
     }
   },
   {
@@ -30,24 +31,28 @@
   },
   {
     "question": "Are you habituated to drugs and alcohol?",
-    "choicetype": "options",
+    "choicetype": "checkboxs",
     "choices": [
-      "Yes to both",
-      "Only to drugs",
-      "Only to alcohol",
-      "I am not habituated to either"
+      "drugs",
+      "alcohol"
     ]
   },
   {
     "question": "How would you evaluate your overall health?",
-    "choicetype": "options",
-    "choices": [
-      "In good physical health (No illness or disabilities)",
-      "Mildy physically impaired. (Minor illness or disabilities)",
-      "Moderately physically impaired. (Requires substantial treatment)",
-      "Severely physically impaired. (Requires extensive treatment)",
-      "Totally physically impaired. (Confined to bed)"
-    ]
+    "choicetype": "slider",
+    "sliderconfig": {
+      "start": 0,
+      "end": 4,
+      "step": 1,
+      "norange": true,
+      "text_options": [
+        "In good physical health (No illness or disabilities)",
+        "Mildy physically impaired. (Minor illness or disabilities)",
+        "Moderately physically impaired. (Requires substantial treatment)",
+        "Severely physically impaired. (Requires extensive treatment)",
+        "Totally physically impaired. (Confined to bed)"
+      ]
+    }
   },
   {
     "question": "In the last 24 hours, how did you take your medicine?",
