@@ -16,10 +16,11 @@ export default function SurveyComponent(props: SurveyComponentProps) {
     const [submitted, setSubmitted] = useState(false);
     const [questionResults, setQuestionResults] = useState([] as QuestionResults);
 
-    const updateQuestionResults = async (result: QuestionResult) => {
-        let qrs = questionResults.slice();
-        qrs[result.question_number] = result;
-        setQuestionResults(qrs);
+    const updateQuestionResults = (result: QuestionResult) => {
+        setQuestionResults(prevState => {
+            prevState[result.question_number] = result;
+            return prevState;
+        });
     };
 
     useEffect(() => {
@@ -57,6 +58,7 @@ export default function SurveyComponent(props: SurveyComponentProps) {
                         <CheckBoxsInputComponent question={question} number={i} setResultCallback={updateQuestionResults}/>
                     );
                 }
+
 
 
                 return (

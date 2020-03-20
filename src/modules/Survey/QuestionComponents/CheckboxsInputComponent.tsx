@@ -7,6 +7,14 @@ import {ChoiceType} from "../QuestionsFormat";
 export default function CheckBoxsInputComponent(props: OptionProps) {
     const [choices, setChoices] = useState([] as Array<string | ChoiceType>);
 
+    const makeCallback = () => {
+        props.setResultCallback({
+            question_number: props.number,
+            choice_type: props.question.choice_type,
+            choices: choices
+        });
+    };
+
     useEffect(() => {
         makeCallback();
         // eslint-disable-next-line
@@ -17,13 +25,6 @@ export default function CheckBoxsInputComponent(props: OptionProps) {
         // eslint-disable-next-line
     }, [choices]);
 
-    const makeCallback = () => {
-        props.setResultCallback({
-            question_number: props.number,
-            choice_type: props.question.choice_type,
-            choices: choices
-        });
-    };
 
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>, choice: string | ChoiceType) => {

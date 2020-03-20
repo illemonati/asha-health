@@ -11,6 +11,15 @@ export default function OptionsComponent(props: OptionProps) {
         setValue((e.target as HTMLInputElement).value);
     };
 
+    const makeCallback = () => {
+        setResultCallback({
+            question_number: questionNumber,
+            choice_type: question.choice_type,
+            choice: value
+        })
+    };
+
+
     useEffect(() => {
         makeCallback();
         // eslint-disable-next-line
@@ -21,14 +30,6 @@ export default function OptionsComponent(props: OptionProps) {
         makeCallback();
         // eslint-disable-next-line
     }, [value]);
-
-    const makeCallback = () => {
-        setResultCallback({
-            question_number: questionNumber,
-            choice_type: question.choice_type,
-            choice: value
-        })
-    };
 
     return (
         <Box>

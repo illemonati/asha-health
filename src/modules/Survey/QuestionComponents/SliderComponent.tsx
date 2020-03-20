@@ -7,7 +7,7 @@ import {OptionProps} from "./OptionProps";
 export default function SliderInputComponent(props: OptionProps) {
 
     const config = props.question.slider_config as SliderConfig;
-    const [sliderVal, setSliderVal] = useState(0);
+    const [sliderVal, setSliderVal] = useState(config.start);
     function valuetext(value: number) {
         return config.text_options ? config.text_options[value] : `${value}`;
     }
@@ -24,6 +24,14 @@ export default function SliderInputComponent(props: OptionProps) {
         });
     }
 
+    const makeCallback = () => {
+        props.setResultCallback({
+            question_number: props.number,
+            choice_type: props.question.choice_type,
+            slider_value: sliderVal
+        })
+    };
+
     useEffect(() => {
         makeCallback()
         //eslint-disable-next-line
@@ -34,13 +42,6 @@ export default function SliderInputComponent(props: OptionProps) {
         //eslint-disable-next-line
     }, [sliderVal]);
 
-    const makeCallback = () => {
-        props.setResultCallback({
-            question_number: props.number,
-            choice_type: props.question.choice_type,
-            slider_value: sliderVal
-        })
-    };
 
     return (
         <Box>

@@ -6,6 +6,14 @@ export default function TextfieldInputComponent(props: OptionProps) {
 
     const [val, setVal] = useState("");
 
+    const makeCallback = () => {
+        props.setResultCallback({
+            question_number: props.number,
+            choice_type: props.question.choice_type,
+            text_input_value: val
+        });
+    };
+
     useEffect(() => {
         makeCallback();
         //eslint-disable-next-line
@@ -16,13 +24,6 @@ export default function TextfieldInputComponent(props: OptionProps) {
         //eslint-disable-next-line
     }, []);
 
-    const makeCallback = () => {
-        props.setResultCallback({
-            question_number: props.number,
-            choice_type: props.question.choice_type,
-            text_input_value: val
-        });
-    };
 
     return (
         <Box>
