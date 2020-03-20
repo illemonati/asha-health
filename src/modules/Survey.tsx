@@ -3,7 +3,7 @@ import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 
 import questions from './questions.json';
-import {Box, FormControlLabel, Input, Radio, Slider, TextField} from "@material-ui/core";
+import {Box, FormControlLabel, Radio, Slider, TextField} from "@material-ui/core";
 import RadioGroup from "@material-ui/core/RadioGroup";
 
 
