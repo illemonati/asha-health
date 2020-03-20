@@ -1,8 +1,8 @@
 [
   {
     "question": "On a scale of 1 to 10, how healthy do you consider yourself?",
-    "choicetype": "slider",
-    "sliderconfig": {
+    "choice_type": "slider",
+    "slider_config": {
       "start": 1,
       "end": 10,
       "step": 1,
@@ -11,12 +11,12 @@
   },
   {
     "question": "Do you currently suffer from any chronic diseases?",
-    "choicetype": "options",
+    "choice_type": "options",
     "choices": ["yes", "no"]
   },
   {
     "question": "Do you have any hereditary conditions/diseases?",
-    "choicetype": "options",
+    "choice_type": "options",
     "choices": [
       "High blood pressure",
       "Diabetes",
@@ -31,7 +31,7 @@
   },
   {
     "question": "Are you habituated to drugs and alcohol?",
-    "choicetype": "checkboxs",
+    "choice_type": "checkboxs",
     "choices": [
       "drugs",
       "alcohol"
@@ -39,12 +39,12 @@
   },
   {
     "question": "How would you evaluate your overall health?",
-    "choicetype": "slider",
-    "sliderconfig": {
+    "choice_type": "slider",
+    "slider_config": {
       "start": 0,
       "end": 4,
       "step": 1,
-      "norange": true,
+      "no_range": true,
       "text_options": [
         "In good physical health (No illness or disabilities)",
         "Mildy physically impaired. (Minor illness or disabilities)",
@@ -56,7 +56,7 @@
   },
   {
     "question": "In the last 24 hours, how did you take your medicine?",
-    "choicetype": "options",
+    "choice_type": "options",
     "choices": [
       "Without help (in the right dosage and right time)",
       "With some help (someone prepares the medicine or reminds you to take it)",
@@ -66,5 +66,10 @@
         "name": "other"
       }
     ]
+  },
+  {
+    "question": "Additional notes?",
+    "choice_type": "textfield"
   }
+
 ]
