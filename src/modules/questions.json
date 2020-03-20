@@ -1,28 +1,5 @@
 [
   {
-    "number": 1,
-    "question": "test question 1?",
-    "choicetype": "radio",
-    "choices": ["A", "B", "C", "D"]
-  },
-  {
-    "number": 2,
-    "question": "test question 2?",
-    "choicetype": "radio",
-    "choices": ["A", "B", "C", "D"]
-  },
-  {
-    "number": 3,
-    "question": "test question 3?",
-    "choicetype": "textfield"
-  },
-  {
-    "number": 4,
-    "question": "test question 4?",
-    "choicetype": "textfield"
-  },
-  {
-    "number": 5,
     "question": "On a scale of 1 to 10, how healthy do you consider yourself?",
     "choicetype": "slider",
     "range": {
@@ -30,5 +7,59 @@
       "end": 10,
       "step": 1
     }
+  },
+  {
+    "question": "Do you currently suffer from any chronic diseases?",
+    "choicetype": "options",
+    "choices": ["yes", "no"]
+  },
+  {
+    "question": "Do you have any hereditary conditions/diseases?",
+    "choicetype": "options",
+    "choices": [
+      "High blood pressure",
+      "Diabetes",
+      "Hemophilia",
+      "Thalassemia",
+      "Huntington",
+      {
+        "type": "textfield",
+        "name": "other"
+      }
+    ]
+  },
+  {
+    "question": "Are you habituated to drugs and alcohol?",
+    "choicetype": "options",
+    "choices": [
+      "Yes to both",
+      "Only to drugs",
+      "Only to alcohol",
+      "I am not habituated to either"
+    ]
+  },
+  {
+    "question": "How would you evaluate your overall health?",
+    "choicetype": "options",
+    "choices": [
+      "In good physical health (No illness or disabilities)",
+      "Mildy physically impaired. (Minor illness or disabilities)",
+      "Moderately physically impaired. (Requires substantial treatment)",
+      "Severely physically impaired. (Requires extensive treatment)",
+      "Totally physically impaired. (Confined to bed)"
+    ]
+  },
+  {
+    "question": "In the last 24 hours, how did you take your medicine?",
+    "choicetype": "options",
+    "choices": [
+      "Without help (in the right dosage and right time)",
+      "With some help (someone prepares the medicine or reminds you to take it)",
+      "Completely unable to take it",
+      {
+        "type": "textfield",
+        "name": "other"
+      }
+    ]
   }
 ]

@@ -1,10 +1,7 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
-import Container from "@material-ui/core/Container";
-import Typography from "@material-ui/core/Typography";
 
 import questions from './questions.json';
-import {Box, FormControlLabel, Radio, Slider, TextField} from "@material-ui/core";
-import RadioGroup from "@material-ui/core/RadioGroup";
+import {Box, FormControlLabel, Radio, Slider, TextField, Container, Typography, RadioGroup} from "@material-ui/core";
 
 
 
@@ -25,16 +22,31 @@ function OptionsComponent(props: OptionProps) {
     useEffect(() => {
         // alert(`You chose option ${value}`);
     }, [value]);
-    
+
     return (
         <Box>
             <RadioGroup aria-label="Choices" value={value} onChange={changeHandler}>
                 {/*
                 //@ts-ignore */}
                 {question.choices.map((choice) => {
-                    return (
-                        <FormControlLabel control={<Radio />} label={choice} value={choice}/>
-                    )
+                    console.log(typeof choice);
+                    if (typeof choice === "string") {
+                        return (
+                            <FormControlLabel control={<Radio />} label={choice} value={choice}/>
+                            // <div></div>
+                        )
+                    } else if (choice.type === "textfield") {
+
+                        const textInput = (
+                            <TextField style={{width: "100%"}} label={choice.name} disabled={value !== choice.name} />
+                        );
+
+                        return (
+                            <FormControlLabel control={<Radio/>} label={textInput} value={choice.name}/>
+                        )
+                    }
+                    return null;
+
                 })}
             </RadioGroup>
         </Box>
@@ -104,7 +116,7 @@ export default function SurveyComponent() {
                     let optionsElement: any = null;
 
 
-                    if (question.choicetype === "radio") {
+                    if (question.choicetype === "options") {
                         optionsElement = (
                             <OptionsComponent question={question} number={i}/>
                         )
@@ -124,6 +136,7 @@ export default function SurveyComponent() {
                             <Typography variant="h5">{` ${i+1}. ${question.question}`}</Typography>
                             <br />
                             {optionsElement}
+                            <br />
                             <br />
                             <br />
                         </Box>
