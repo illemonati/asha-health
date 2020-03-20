@@ -91,7 +91,7 @@ function SliderInputComponent(props: OptionProps) {
     }
 
     let marks = new Array<SliderMark>();
-    for (let i = config.start; i < config.end; ++i) {
+    for (let i = config.start; i < config.end+1; ++i) {
         marks.push({
            value: i,
            label: valuetext(i)

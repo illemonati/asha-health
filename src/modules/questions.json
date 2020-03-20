@@ -3,7 +3,7 @@
     "question": "On a scale of 1 to 10, how healthy do you consider yourself?",
     "choicetype": "slider",
     "sliderconfig": {
-      "start": 0,
+      "start": 1,
       "end": 10,
       "step": 1,
       "marks": true
