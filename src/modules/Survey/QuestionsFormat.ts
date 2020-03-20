@@ -7,7 +7,8 @@ export interface QuestionResult {
     choice?: string|ChoiceType,
     choices?: Array<string|ChoiceType>,
     slider_value?: number,
-    text_input_value?: string
+    text_input_value?: string,
+    extra_info?: string
 }
 
 

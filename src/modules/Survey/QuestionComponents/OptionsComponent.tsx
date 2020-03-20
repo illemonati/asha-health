@@ -7,15 +7,23 @@ export default function OptionsComponent(props: OptionProps) {
     const questionNumber = props.number;
     const setResultCallback = props.setResultCallback;
     const [value, setValue] = useState(props.question.choices![0]);
+
+    const [extraInfo, setExtraInfo] = useState("");
+
     const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setValue((e.target as HTMLInputElement).value);
+    };
+
+    const textFieldChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setExtraInfo(e.target.value);
     };
 
     const makeCallback = () => {
         setResultCallback({
             question_number: questionNumber,
             choice_type: question.choice_type,
-            choice: value
+            choice: value,
+            extra_info: extraInfo.length > 0 ? extraInfo : undefined
         })
     };
 
@@ -29,7 +37,7 @@ export default function OptionsComponent(props: OptionProps) {
     useEffect(() => {
         makeCallback();
         // eslint-disable-next-line
-    }, [value]);
+    }, [value, extraInfo]);
 
     return (
         <Box>
@@ -42,7 +50,7 @@ export default function OptionsComponent(props: OptionProps) {
                     } else if (choice.type === "textfield") {
 
                         const textInput = (
-                            <TextField style={{width: "100%"}} multiline label={choice.name} disabled={value !== choice.name} key={i} />
+                            <TextField style={{width: "100%"}} multiline label={choice.name} disabled={value !== choice.name} key={i}  onChange={textFieldChangeHandler}/>
                         );
 
                         return (

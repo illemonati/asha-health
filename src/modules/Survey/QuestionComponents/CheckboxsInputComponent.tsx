@@ -6,12 +6,19 @@ import {ChoiceType} from "../QuestionsFormat";
 
 export default function CheckBoxsInputComponent(props: OptionProps) {
     const [choices, setChoices] = useState([] as Array<string | ChoiceType>);
+    const [extraInfo, setExtraInfo] = useState("");
+
+
+    const textFieldChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setExtraInfo(e.target.value);
+    };
 
     const makeCallback = () => {
         props.setResultCallback({
             question_number: props.number,
             choice_type: props.question.choice_type,
-            choices: choices
+            choices: choices,
+            extra_info: extraInfo.length > 0 ? extraInfo : undefined
         });
     };
 
@@ -54,7 +61,7 @@ export default function CheckBoxsInputComponent(props: OptionProps) {
                     } else if (choice.type === "textfield") {
 
                         const textInput = (
-                            <TextField style={{width: "100%"}} multiline label={choice.name} key={i}/>
+                            <TextField style={{width: "100%"}} multiline label={choice.name} key={i} onChange={textFieldChangeHandler}/>
                         );
 
                         return (
