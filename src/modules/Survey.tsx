@@ -46,7 +46,7 @@ function TextfieldInputComponent(props: OptionsComponentProps) {
 
     return (
         <Box>
-            <TextField label="answer" />
+            <TextField style={{width: "100%"}} label="answer" />
         </Box>
     )
 }
