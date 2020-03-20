@@ -15,5 +15,20 @@
     "number": 3,
     "question": "test question 3?",
     "choicetype": "textfield"
+  },
+  {
+    "number": 4,
+    "question": "test question 4?",
+    "choicetype": "textfield"
+  },
+  {
+    "number": 5,
+    "question": "On a scale of 1 to 10, how healthy do you consider yourself?",
+    "choicetype": "slider",
+    "range": {
+      "start": 0,
+      "end": 10,
+      "step": 1
+    }
   }
 ]

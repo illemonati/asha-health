@@ -3,15 +3,18 @@ import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 
 import questions from './questions.json';
-import {Box, FormControlLabel, Radio, TextField} from "@material-ui/core";
+import {Box, FormControlLabel, Input, Radio, Slider, TextField} from "@material-ui/core";
 import RadioGroup from "@material-ui/core/RadioGroup";
 
 
-interface OptionsComponentProps {
-    question: any
+
+
+interface OptionProps {
+    question: any,
+    number: number
 }
 
-function OptionsComponent(props: OptionsComponentProps) {
+function OptionsComponent(props: OptionProps) {
     const question = props.question;
     const [value, setValue] = useState(props.question.choices[0]);
     
@@ -38,11 +41,45 @@ function OptionsComponent(props: OptionsComponentProps) {
     )
 }
 
+interface SliderConfig {
+    start: number,
+    end: number,
+    step: number
+}
+
+
+function SliderInputComponent(props: OptionProps) {
+
+    const range = props.question.range as SliderConfig;
+
+    function valuetext(value: number) {
+        return `${value}`;
+    }
+
+    return (
+        <Box>
+            <Typography gutterBottom>
+                {`${range.start} - ${range.end}`}
+                <Slider
+                    defaultValue={0}
+                    step={range.step}
+                    min={range.start}
+                    max={range.end}
+                    getAriaValueText={valuetext}
+                    valueLabelDisplay="auto"
+                    marks
+
+                />
+            </Typography>
+        </Box>
+    )
+}
 
 
 
 
-function TextfieldInputComponent(props: OptionsComponentProps) {
+
+function TextfieldInputComponent(props: OptionProps) {
 
     return (
         <Box>
@@ -56,7 +93,7 @@ function TextfieldInputComponent(props: OptionsComponentProps) {
 export default function SurveyComponent() {
     return(
         <div className="SurveyComponent">
-            <Container maxWidth="sm">
+            <Container maxWidth="md">
                 <Typography variant="h3">
                     Survey Demo
                 </Typography>
@@ -69,11 +106,15 @@ export default function SurveyComponent() {
 
                     if (question.choicetype === "radio") {
                         optionsElement = (
-                            <OptionsComponent question={question}/>
+                            <OptionsComponent question={question} number={i}/>
                         )
                     } else if (question.choicetype === "textfield") {
                         optionsElement = (
-                            <TextfieldInputComponent question={question}/>
+                            <TextfieldInputComponent question={question} number={i}/>
+                        )
+                    } else if (question.choicetype === "slider") {
+                        optionsElement = (
+                            <SliderInputComponent question={question} number={i}/>
                         )
                     }
 
