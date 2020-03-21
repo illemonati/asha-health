@@ -77,7 +77,7 @@ export default function SurveyComponent(props: SurveyComponentProps) {
         <Container maxWidth="md">
             <Typography variant="h3">Thank you</Typography>
             <Box>
-                <Typography variant="caption">
+                <Typography variant="caption" style={{width: '25vw'}}>
                     {JSON.stringify(questionResults)}
                 </Typography>
             </Box>
