@@ -5,7 +5,6 @@ import OptionsComponent from "./QuestionComponents/OptionsComponent";
 import SliderInputComponent from "./QuestionComponents/SliderComponent";
 import CheckBoxsInputComponent from "./QuestionComponents/CheckboxsInputComponent";
 import {Questions, QuestionResults, QuestionResult} from "./QuestionsFormat";
-import {type} from "os";
 
 
 interface SurveyComponentProps {
