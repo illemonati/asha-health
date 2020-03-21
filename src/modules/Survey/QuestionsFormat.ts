@@ -9,6 +9,7 @@ export interface QuestionResult {
     sliderValue?: number,
     textInputValue?: string,
     extraInfo?: string
+    required?: boolean
 }
 
 
