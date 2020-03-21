@@ -42,7 +42,6 @@ export default function SurveyComponent(props: SurveyComponentProps) {
             result[i] = questionResult;
         });
 
-        console.log(result);
 
         return result;
     };
