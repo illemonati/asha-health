@@ -20,11 +20,13 @@ export interface Question {
     choiceType: string,
     sliderConfig?: SliderConfig,
     choices?: Array<string|ChoiceType>,
+    textfieldLabel?: string
 }
 
 export interface ChoiceType {
     type: string,
     name: string
+
 }
 
 
@@ -32,8 +34,9 @@ export interface SliderConfig {
     start: number,
     end: number,
     step: number,
+    default?: number,
     noRange?: boolean,
-    textOptions?: Array<string>
+    textOptions?: Array<string>,
     marks?: boolean
 }
 

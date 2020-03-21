@@ -7,9 +7,11 @@ import {OptionProps} from "./OptionProps";
 export default function SliderInputComponent(props: OptionProps) {
 
     const config = props.question.sliderConfig as SliderConfig;
-    const [sliderVal, setSliderVal] = useState(config.start);
+
+
+    const [sliderVal, setSliderVal] = useState(config.default ? config.default : config.start);
     function valuetext(value: number) {
-        return config.textOptions ? config.textOptions[value] : `${value}`;
+        return config.textOptions ? config.textOptions[((value/config.step)-config.start)] : `${value}`
     }
 
     function handleChange(e: any, newValue: number | number[]) {
@@ -60,7 +62,7 @@ export default function SliderInputComponent(props: OptionProps) {
                     aria-labelledby="discrete-slider-always"
                     value={sliderVal}
                     onChange={handleChange}
-                    marks={config.marks ? marks : []}
+                    marks={config.marks ? marks : true}
 
                 />
             </Typography>

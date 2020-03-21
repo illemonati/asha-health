@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Box, Container, Typography, Button} from "@material-ui/core";
 import TextfieldInputComponent from "./QuestionComponents/TextFieldInputComponent";
 import OptionsComponent from "./QuestionComponents/OptionsComponent";
@@ -22,12 +22,6 @@ export default function SurveyComponent(props: SurveyComponentProps) {
             return prevState;
         });
     };
-
-    useEffect(() => {
-        console.log(questionResults);
-    }, [questionResults]);
-
-
 
     const survey = (
         <Container maxWidth="md">

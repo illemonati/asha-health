@@ -27,7 +27,10 @@ export default function TextfieldInputComponent(props: OptionProps) {
 
     return (
         <Box>
-            <TextField multiline style={{width: "100%"}} label="answer" value={val} onChange={e => setVal(e.target.value)} />
+            <TextField multiline style={{width: "100%"}}
+                       label={props.question.textfieldLabel || "answer"} value={val}
+                       onChange={e => setVal(e.target.value)} />
         </Box>
     )
 }
+    
