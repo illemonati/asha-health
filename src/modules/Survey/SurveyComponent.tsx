@@ -28,28 +28,20 @@ export default function SurveyComponent(props: SurveyComponentProps) {
             return prevState;
         });
     };
-
-    const buildSaveObject = () => {
-        let result : any = {};
-        Object.keys(contacts).forEach(contact => {
-            //@ts-ignore
-            result[contact] = contacts[contact];
-        });
-
-        questionResults.forEach((questionResult, i) => {
-            //@ts-ignore
-            Object.keys(questionResult).forEach(key => questionResult[key] === undefined && delete questionResult[key]);
-            result[i] = questionResult;
-        });
-
-
-        return result;
-    };
-
     const saveToDatabase = async () => {
 
         if (props.db && props.dbCollectionName) {
-            props.db.collection(props.dbCollectionName).add(buildSaveObject());
+            const document = await props.db.collection(props.dbCollectionName).add({
+                name: contacts.name,
+                email: contacts.email
+            });
+
+            const questionResultsCollection = document.collection('questionResults');
+            questionResults.forEach((questionResult, i) => {
+                //@ts-ignore
+                Object.keys(questionResult).forEach(key => questionResult[key] === undefined && delete questionResult[key]);
+                questionResultsCollection.doc(`question-${questionResult.questionNumber}`).set(questionResult);
+            });
         }
     };
 
