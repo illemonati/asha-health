@@ -31,17 +31,21 @@ export default function SurveyComponent(props: SurveyComponentProps) {
     const saveToDatabase = async () => {
 
         if (props.db && props.dbCollectionName) {
+
             const document = await props.db.collection(props.dbCollectionName).add({
                 name: contacts.name,
                 email: contacts.email
             });
 
             const questionResultsCollection = document.collection('questionResults');
+            const batch = props.db.batch();
             questionResults.forEach((questionResult, i) => {
                 //@ts-ignore
                 Object.keys(questionResult).forEach(key => questionResult[key] === undefined && delete questionResult[key]);
-                questionResultsCollection.doc(`question-${questionResult.questionNumber}`).set(questionResult);
+                const doc = questionResultsCollection.doc(`question-${questionResult.questionNumber}`);
+                batch.set(doc, questionResult);
             });
+            await batch.commit();
         }
     };
 
@@ -76,7 +80,7 @@ export default function SurveyComponent(props: SurveyComponentProps) {
                 <Typography variant="h5">What is your name and email?</Typography>
                 <br />
                 <TextfieldInputComponent
-                    question={{question: "What is your name?", choiceType: "textfield"}}
+                    question={{question: "What is your name?", choiceType: "textfield", textfieldLabel: 'Name'}}
                     number={0}
                     setResultCallback={(result)=>{setContacts(contacts => {
                         contacts.name = result.textInputValue || '';
@@ -84,7 +88,7 @@ export default function SurveyComponent(props: SurveyComponentProps) {
                     })}}
                 />
                 <TextfieldInputComponent
-                    question={{question: "What is your email?", choiceType: "textfield"}}
+                    question={{question: "What is your email?", choiceType: "textfield", textfieldLabel: 'Email'}}
                     number={1}
                     setResultCallback={(result)=>{setContacts(contacts => {
                         contacts.email = result.textInputValue || '';
