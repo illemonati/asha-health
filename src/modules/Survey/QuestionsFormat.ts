@@ -9,7 +9,6 @@ export interface QuestionResult {
     sliderValue?: number,
     textInputValue?: string,
     extraInfo?: string
-    required?: boolean
 }
 
 
@@ -22,6 +21,7 @@ export interface Question {
     sliderConfig?: SliderConfig,
     choices?: Array<string|ChoiceType>,
     textfieldLabel?: string
+    required?: boolean
 }
 
 export interface ChoiceType {

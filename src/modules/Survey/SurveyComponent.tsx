@@ -80,7 +80,7 @@ export default function SurveyComponent(props: SurveyComponentProps) {
                 <Typography variant="h5">What is your name and email?</Typography>
                 <br />
                 <TextfieldInputComponent
-                    question={{question: "What is your name?", choiceType: "textfield", textfieldLabel: 'Name'}}
+                    question={{question: "What is your name?", choiceType: "textfield", textfieldLabel: 'Name', required: true}}
                     number={0}
                     setResultCallback={(result)=>{setContacts(contacts => {
                         contacts.name = result.textInputValue || '';
@@ -88,7 +88,7 @@ export default function SurveyComponent(props: SurveyComponentProps) {
                     })}}
                 />
                 <TextfieldInputComponent
-                    question={{question: "What is your email?", choiceType: "textfield", textfieldLabel: 'Email'}}
+                    question={{question: "What is your email?", choiceType: "textfield", textfieldLabel: 'Email', required: true}}
                     number={1}
                     setResultCallback={(result)=>{setContacts(contacts => {
                         contacts.email = result.textInputValue || '';
