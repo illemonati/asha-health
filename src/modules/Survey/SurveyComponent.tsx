@@ -5,11 +5,12 @@ import OptionsComponent from "./QuestionComponents/OptionsComponent";
 import SliderInputComponent from "./QuestionComponents/SliderComponent";
 import CheckBoxsInputComponent from "./QuestionComponents/CheckboxsInputComponent";
 import {Questions, QuestionResults, QuestionResult} from "./QuestionsFormat";
+import 'firebase/analytics';
 
 
 interface SurveyComponentProps {
     questions: Questions,
-    db?: any,
+    firebase?: any,
     dbCollectionName?: string,
 }
 
@@ -30,15 +31,15 @@ export default function SurveyComponent(props: SurveyComponentProps) {
     };
     const saveToDatabase = async () => {
 
-        if (props.db && props.dbCollectionName) {
+        if (props.firebase.firestore() && props.dbCollectionName) {
 
-            const document = await props.db.collection(props.dbCollectionName).add({
+            const document = await props.firebase.firestore().collection(props.dbCollectionName).add({
                 name: contacts.name,
                 email: contacts.email
             });
 
             const questionResultsCollection = document.collection('questionResults');
-            const batch = props.db.batch();
+            const batch = props.firebase.firestore().batch();
             questionResults.forEach((questionResult, i) => {
                 //@ts-ignore
                 Object.keys(questionResult).forEach(key => questionResult[key] === undefined && delete questionResult[key]);
@@ -64,6 +65,11 @@ export default function SurveyComponent(props: SurveyComponentProps) {
         }
 
         saveToDatabase().then();
+        const analytics = props.firebase.analytics();
+        console.log(analytics);
+        analytics.logEvent(`survey_submitted`, {
+            collectionName: props.dbCollectionName,
+        });
 
         setSubmitted(true);
     };

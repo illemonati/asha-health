@@ -3,15 +3,15 @@ import './App.css';
 import SurveyComponent from "./modules/Survey/SurveyComponent";
 import questions from './configs/questions.json';
 import firebaseConfig from './configs/firebase.json';
-import {getFirebaseFirestoreDB} from "./firebase/auth";
+import {getFirebase} from "./firebase/auth";
 
 function App() {
 
-    const db = getFirebaseFirestoreDB(firebaseConfig);
+    const firebase = getFirebase(firebaseConfig);
 
     return (
     <div className="App">
-      <SurveyComponent questions={questions} db={db} dbCollectionName={'demo-survey-0'}/>
+      <SurveyComponent questions={questions} firebase={firebase} dbCollectionName={'demo-survey-0'}/>
     </div>
     );
 }
