@@ -75,79 +75,81 @@ export default function SurveyComponent(props: SurveyComponentProps) {
     };
 
     const survey = (
-        <Container maxWidth="md">
-            <Typography variant="h3">
-                Survey
-            </Typography>
-            <br />
-            <br />
-
-            <Box>
-                <Typography variant="h5">What is your name and email?</Typography>
-                <br />
-                <TextfieldInputComponent
-                    question={{question: "What is your name?", choiceType: "textfield", textfieldLabel: 'Name', required: true}}
-                    number={0}
-                    setResultCallback={(result)=>{setContacts(contacts => {
-                        contacts.name = result.textInputValue || '';
-                        return contacts;
-                    })}}
-                />
-                <TextfieldInputComponent
-                    question={{question: "What is your email?", choiceType: "textfield", textfieldLabel: 'Email', required: true}}
-                    number={1}
-                    setResultCallback={(result)=>{setContacts(contacts => {
-                        contacts.email = result.textInputValue || '';
-                        return contacts;
-                    })}}
-                />
+        <div className="SurveyComponent">
+            <Container maxWidth="md">
+                <Typography variant="h3">
+                    Survey
+                </Typography>
                 <br />
                 <br />
+
+                <Box>
+                    <Typography variant="h5">What is your name and email?</Typography>
+                    <br />
+                    <TextfieldInputComponent
+                        question={{question: "What is your name?", choiceType: "textfield", textfieldLabel: 'Name', required: true}}
+                        number={0}
+                        setResultCallback={(result)=>{setContacts(contacts => {
+                            contacts.name = result.textInputValue || '';
+                            return contacts;
+                        })}}
+                    />
+                    <TextfieldInputComponent
+                        question={{question: "What is your email?", choiceType: "textfield", textfieldLabel: 'Email', required: true}}
+                        number={1}
+                        setResultCallback={(result)=>{setContacts(contacts => {
+                            contacts.email = result.textInputValue || '';
+                            return contacts;
+                        })}}
+                    />
+                    <br />
+                    <br />
+                    <br />
+                </Box>
+
+                {props.questions.map((question, i) => {
+
+                    let optionsElement: any = null;
+
+
+                    if (question.choiceType === "options") {
+                        optionsElement = (
+                            <OptionsComponent question={question} number={i} setResultCallback={updateQuestionResults}/>
+                        );
+                    } else if (question.choiceType === "textfield") {
+                        optionsElement = (
+                            <TextfieldInputComponent question={question} number={i} setResultCallback={updateQuestionResults}/>
+                        );
+                    } else if (question.choiceType === "slider") {
+                        optionsElement = (
+                            <SliderInputComponent question={question} number={i} setResultCallback={updateQuestionResults}/>
+                        );
+                    } else if (question.choiceType === "checkboxs") {
+                        optionsElement = (
+                            <CheckBoxsInputComponent question={question} number={i} setResultCallback={updateQuestionResults}/>
+                        );
+                    }
+
+
+
+                    return (
+                        <Box key={i}>
+                            <Typography variant="h5">{` ${i+1}. ${question.question}`}</Typography>
+                            <br />
+
+                            {optionsElement}
+                            <br />
+                            <br />
+                            <br />
+                        </Box>
+                    )
+
+
+                }) }
                 <br />
-            </Box>
-
-            {props.questions.map((question, i) => {
-
-                let optionsElement: any = null;
-
-
-                if (question.choiceType === "options") {
-                    optionsElement = (
-                        <OptionsComponent question={question} number={i} setResultCallback={updateQuestionResults}/>
-                    );
-                } else if (question.choiceType === "textfield") {
-                    optionsElement = (
-                        <TextfieldInputComponent question={question} number={i} setResultCallback={updateQuestionResults}/>
-                    );
-                } else if (question.choiceType === "slider") {
-                    optionsElement = (
-                        <SliderInputComponent question={question} number={i} setResultCallback={updateQuestionResults}/>
-                    );
-                } else if (question.choiceType === "checkboxs") {
-                    optionsElement = (
-                        <CheckBoxsInputComponent question={question} number={i} setResultCallback={updateQuestionResults}/>
-                    );
-                }
-
-
-
-                return (
-                    <Box key={i}>
-                        <Typography variant="h5">{` ${i+1}. ${question.question}`}</Typography>
-                        <br />
-
-                        {optionsElement}
-                        <br />
-                        <br />
-                        <br />
-                    </Box>
-                )
-
-
-            }) }
-            <br />
-            <br />
-        </Container>
+                <br />
+            </Container>
+        </div>
     );
     const thankyou = (
         <Container maxWidth="md">
