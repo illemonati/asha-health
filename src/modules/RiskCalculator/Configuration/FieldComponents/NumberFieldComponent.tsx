@@ -7,7 +7,7 @@ export default function NumberFieldComponent(props: FieldComponentProps) {
     const [val, setVal] = useState(props.field.fieldConfig.default);
 
     const handleChange =((e: ChangeEvent<HTMLInputElement>) => {
-        setVal(parseInt(e.target.value) || 0);
+        setVal(parseFloat(e.target.value) || 0);
     });
 
     const makeCallback = () => {

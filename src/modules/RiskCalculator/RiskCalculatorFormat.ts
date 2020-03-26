@@ -10,30 +10,6 @@ export interface RiskCalculatorFieldResult {
 
 
 
-// Interface for variables needed for calculations
-export interface RiskCalculatorVariables {
-    age: number,
-    CVAStrokeDeficit: number,
-    DypsneaME: number,
-    DypsneaRest: number,
-    PVPTCA: number,
-    HEMImr: number,
-    WNDINFmr: number,
-    Dementiamr: number,
-    HXANGINAmr: number,
-    HXPVDmr: number,
-    Ulcers: number,
-    Malignancy: number,
-    ASA4: number,
-    PREALBUM: number,
-    PRPTT: number,
-    Cerebrovascular: number,
-    MyocardialInfarction: number,
-    PainMedication: number,
-    Chemotherapy: number,
-    RESTPAIN: number,
-    PRBUN: number
-}
 
 export type RiskCalculatorFields = Array<RiskCalculatorField>;
 
