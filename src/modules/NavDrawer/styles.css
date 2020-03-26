@@ -4,10 +4,10 @@
 }
 
 .menuIconButton {
-    margin-right: 30px !important;
+    padding-right: 2vw !important;
 }
 
 .drawerBox {
-    width: 20vw;
+    width: 300px;
     text-align: center;
 }
