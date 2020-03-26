@@ -4,6 +4,8 @@ import {RiskCalculatorFieldResult, RiskCalculatorFieldResults, RiskCalculatorFie
 import RiskCalculatorConfigComponent from "./Configuration/RiskCalculatorConfigComponent";
 import './styles.css';
 import RiskCalculatorResultsComponent from "./Results/RiskCalculatorResultsComponent";
+import {updateRiskCalculatorInputs} from "../../actions/riskCalculatorInputs";
+import {useDispatch, useSelector} from "react-redux";
 
 
 interface RiskCalculatorComponentProps {
@@ -13,8 +15,12 @@ interface RiskCalculatorComponentProps {
 export default function RiskCalculatorComponent(props: RiskCalculatorComponentProps) {
 
     //eslint-disable-next-line
-    const [inputs, setInputs] = useState([] as RiskCalculatorFieldResult[]);
+    const [inputs, setInputs] = useState([] as RiskCalculatorFieldResults);
     const [tabVal, setTabVal] = useState(0);
+    const dispatch = useDispatch();
+    const savedInputs = useSelector<any, RiskCalculatorFieldResults>(state => state.riskCalculatorInputs);
+
+
     let configs = props.configs;
 
     const handleConfigCallback = (result: RiskCalculatorFieldResult) => {
@@ -22,17 +28,15 @@ export default function RiskCalculatorComponent(props: RiskCalculatorComponentPr
            prevState[result.field.fieldNumber] = result;
            return prevState;
         });
-        localStorage.setItem('risk-calculator-inputs', JSON.stringify(inputs));
+        dispatch(updateRiskCalculatorInputs(inputs));
     };
 
 
     useEffect(() => {
-        const savedInputs = localStorage.getItem('risk-calculator-inputs');
-        if (savedInputs !== null) {
-            const parsedInputs = JSON.parse(savedInputs) as RiskCalculatorFieldResults;
+        if (savedInputs && savedInputs.length > 0) {
             // eslint-disable-next-line react-hooks/exhaustive-deps
             configs = configs.map((config, i) => {
-                config.fieldConfig.default = parsedInputs[i].result;
+                config.fieldConfig.default = savedInputs[i].result;
                 return config;
             })
         }
