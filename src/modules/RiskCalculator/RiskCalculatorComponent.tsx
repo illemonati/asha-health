@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import {Box, Grid, Typography} from "@material-ui/core";
+import React, {ChangeEvent, useState} from "react";
+import {Container, Paper, Tab, Tabs, Typography} from "@material-ui/core";
 import {RiskCalculatorFieldResult, RiskCalculatorFields} from "./RiskCalculatorFormat";
 import RiskCalculatorConfigComponent from "./Configuration/RiskCalculatorConfigComponent";
 import './styles.css';
@@ -13,6 +13,7 @@ export default function RiskCalculatorComponent(props: RiskCalculatorComponentPr
 
     //eslint-disable-next-line
     const [configs, setConfigs] = useState([] as RiskCalculatorFieldResult[]);
+    const [tabVal, setTabVal] = useState(0);
 
     const handleConfigCallback = (result: RiskCalculatorFieldResult) => {
         setConfigs(prevState => {
@@ -21,6 +22,9 @@ export default function RiskCalculatorComponent(props: RiskCalculatorComponentPr
         });
     };
 
+    const handleTabValChange = (e: ChangeEvent<{}>, newVal: number) => {
+      setTabVal(newVal);
+    };
 
 
 
@@ -31,16 +35,20 @@ export default function RiskCalculatorComponent(props: RiskCalculatorComponentPr
             </Typography>
             <br />
             <br />
-            <Box maxHeight="50%" className="containerBox" flexWrap="nowrap">
-                <Grid container spacing={1} className="mainGrid">
-                    <Grid item xs={3} className="configGrid">
-                        <RiskCalculatorConfigComponent fields={props.fields} callBack={handleConfigCallback}/>
-                    </Grid>
-                    <Grid item xs={9}>
-                        <Typography>Hi2</Typography>
-                    </Grid>
-                </Grid>
-            </Box>
+            <Container className="containerBox">
+                <Paper square>
+                    <Tabs value={tabVal} onChange={handleTabValChange} className="toggleTabs" centered={true}>
+                        <Tab label="Inputs" />
+                        <Tab label="results" />
+                    </Tabs>
+                </Paper>
+                {
+                    (tabVal === 0) ?
+                    (<RiskCalculatorConfigComponent fields={props.fields} callBack={handleConfigCallback}/>)
+                        :
+                    (<div>hi</div>)
+                }
+            </Container>
         </div>
     )
 }

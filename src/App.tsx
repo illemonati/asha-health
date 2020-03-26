@@ -10,6 +10,7 @@ import HomePageComponent from "./modules/HomePage/HomePageComponent";
 import pageLinks from "./configs/links.json";
 import riskCalculatorConfig from './configs/riskCalculatorConfig.json';
 import NavDrawerComponent from "./modules/NavDrawer/NavDrawerComponent";
+import {Box} from "@material-ui/core";
 
 
 function App() {
@@ -19,9 +20,10 @@ function App() {
     return (
         <Router basename={process.env.PUBLIC_URL}>
             <div className="App">
-                <NavDrawerComponent pageLinks={pageLinks}/>
-                <br />
-                <br />
+                <Box>
+                    <NavDrawerComponent pageLinks={pageLinks}/>
+                    <br />
+                    <br />
                     <Switch>
                         <Route path="/survey">
                             <SurveyComponent questions={questions} firebase={firebase} dbCollectionName={'demo-survey-0'} />
@@ -33,6 +35,7 @@ function App() {
                             <HomePageComponent pageLinks={pageLinks}/>
                         </Route>
                     </Switch>
+                </Box>
             </div>
         </Router>
     )

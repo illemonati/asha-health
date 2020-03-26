@@ -189,5 +189,29 @@
       "default":false
 
     }
+  },
+  {
+    "fieldNumber": 18,
+    "fieldName": "Pre-operative BUN (mg/dl)",
+    "inputType": "number",
+    "fieldConfig": {
+      "default": 0
+    }
+  },
+  {
+    "fieldNumber": 19,
+    "fieldName": "Pre-operative serum albumin (g/dl)",
+    "inputType": "number",
+    "fieldConfig": {
+      "default": 20
+    }
+  },
+  {
+    "fieldNumber": 20,
+    "fieldName": "Pre-operative partial thromboplastin time (s)",
+    "inputType": "number",
+    "fieldConfig": {
+      "default": 30
+    }
   }
 ]

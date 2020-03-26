@@ -15,8 +15,8 @@ export default function NavDrawerComponent(props?: NavDrawerComponentProps) {
 
 
     return (
-        <div className="NavDrawer">
-            <AppBar position="static" color='primary'>
+        <>
+            <AppBar position="sticky" color='primary'>
                 <Toolbar>
                     <IconButton className="menuIconButton" color="inherit" aria-label="menu" onClick={() => setDrawerOpen(!drawerOpen)}>
                         <MenuIcon/>
@@ -44,7 +44,7 @@ export default function NavDrawerComponent(props?: NavDrawerComponentProps) {
                     </List>
                 </Box>
             </Drawer>
-        </div>
+        </>
     )
 
 
