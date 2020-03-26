@@ -3,20 +3,21 @@ import {Container, Paper, Tab, Tabs, Typography} from "@material-ui/core";
 import {RiskCalculatorFieldResult, RiskCalculatorFields} from "./RiskCalculatorFormat";
 import RiskCalculatorConfigComponent from "./Configuration/RiskCalculatorConfigComponent";
 import './styles.css';
+import RiskCalculatorResultsComponent from "./Results/RiskCalculatorResultsComponent";
 
 
 interface RiskCalculatorComponentProps {
-    fields: RiskCalculatorFields
+    configs: RiskCalculatorFields
 }
 
 export default function RiskCalculatorComponent(props: RiskCalculatorComponentProps) {
 
     //eslint-disable-next-line
-    const [configs, setConfigs] = useState([] as RiskCalculatorFieldResult[]);
+    const [inputs, setInputs] = useState([] as RiskCalculatorFieldResult[]);
     const [tabVal, setTabVal] = useState(0);
 
     const handleConfigCallback = (result: RiskCalculatorFieldResult) => {
-        setConfigs(prevState => {
+        setInputs(prevState => {
            prevState[result.field.fieldNumber] = result;
            return prevState;
         });
@@ -44,9 +45,9 @@ export default function RiskCalculatorComponent(props: RiskCalculatorComponentPr
                 </Paper>
                 {
                     (tabVal === 0) ?
-                    (<RiskCalculatorConfigComponent fields={props.fields} callBack={handleConfigCallback}/>)
+                    (<RiskCalculatorConfigComponent fields={props.configs} callBack={handleConfigCallback}/>)
                         :
-                    (<div>hi</div>)
+                    (<RiskCalculatorResultsComponent inputs={inputs}/>)
                 }
             </Container>
         </div>
