@@ -8,6 +8,7 @@ import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import RiskCalculatorComponent from "./modules/RiskCalculator/RiskCalculatorComponent";
 import HomePageComponent from "./modules/HomePage/HomePageComponent";
 import pageLinks from "./configs/links.json";
+import riskCalculatorConfig from './configs/riskCalculatorConfig.json';
 import NavDrawerComponent from "./modules/NavDrawer/NavDrawerComponent";
 
 
@@ -26,7 +27,7 @@ function App() {
                             <SurveyComponent questions={questions} firebase={firebase} dbCollectionName={'demo-survey-0'} />
                         </Route>
                         <Route path="/risk-calculator">
-                            <RiskCalculatorComponent/>
+                            <RiskCalculatorComponent fields={riskCalculatorConfig}/>
                         </Route>
                         <Route path="/" exact>
                             <HomePageComponent pageLinks={pageLinks}/>

@@ -21,9 +21,9 @@ export default function HomePageComponent(props: HomePageComponentProps) {
                     <br />
                     <br />
 
-                    {props.pageLinks?.map((pageLink) => {
+                    {props.pageLinks?.map((pageLink, i) => {
                         return(
-                            <Box>
+                            <Box key={i}>
                                 <Link to={pageLink.pageUrl}>{pageLink.pageName}</Link>
                                 <br />
                                 <br />

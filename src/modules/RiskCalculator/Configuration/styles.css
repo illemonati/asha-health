@@ -1,0 +1,26 @@
+.RiskCalculatorConfigComponent {
+    height: inherit !important;
+    overflow-x: hidden !important;
+    float: left;
+
+    overflow-y: hidden !important;
+}
+
+.fieldsList {
+    margin-left: 30px !important;
+    margin-right: 30px !important;
+    height: inherit !important;
+    /*max-height: inherit !important;*/
+    overflow-x: hidden !important;
+}
+
+
+.paper {
+    /*height: 100% !important;*/
+    /*height: inherit !important;*/
+}
+
+.fieldsListContainer {
+    height: 60vmin !important;
+    /*max-height: inherit !important;*/
+}
