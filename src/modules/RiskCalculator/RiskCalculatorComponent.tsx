@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {Box, Grid, Typography} from "@material-ui/core";
 import {RiskCalculatorFieldResult, RiskCalculatorFields} from "./RiskCalculatorFormat";
 import RiskCalculatorConfigComponent from "./Configuration/RiskCalculatorConfigComponent";
@@ -11,6 +11,7 @@ interface RiskCalculatorComponentProps {
 
 export default function RiskCalculatorComponent(props: RiskCalculatorComponentProps) {
 
+    //eslint-disable-next-line
     const [configs, setConfigs] = useState([] as RiskCalculatorFieldResult[]);
 
     const handleConfigCallback = (result: RiskCalculatorFieldResult) => {

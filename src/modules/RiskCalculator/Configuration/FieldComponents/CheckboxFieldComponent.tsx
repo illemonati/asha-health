@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useEffect, useState} from "react";
 import {FieldComponentProps} from "./shared";
-import {Box, Checkbox, FormControlLabel, TextField} from "@material-ui/core";
+import {Box, Checkbox, FormControlLabel} from "@material-ui/core";
 import {CheckBoxConfig} from "../../RiskCalculatorFormat";
 
 export default function CheckboxFieldComponent(props: FieldComponentProps) {
