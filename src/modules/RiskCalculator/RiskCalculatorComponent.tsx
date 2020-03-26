@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useEffect, useState} from "react";
+import React, {ChangeEvent, useState} from "react";
 import {Container, Paper, Tab, Tabs, Typography} from "@material-ui/core";
 import {RiskCalculatorFieldResult, RiskCalculatorFieldResults, RiskCalculatorFields} from "./RiskCalculatorFormat";
 import RiskCalculatorConfigComponent from "./Configuration/RiskCalculatorConfigComponent";
@@ -20,27 +20,32 @@ export default function RiskCalculatorComponent(props: RiskCalculatorComponentPr
     const dispatch = useDispatch();
     const savedInputs = useSelector<any, RiskCalculatorFieldResults>(state => state.riskCalculatorInputs);
 
+    console.log(savedInputs);
+
 
     let configs = props.configs;
+
+    if (savedInputs && savedInputs.length > 0) {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        configs = configs.map((config, i) => {
+            if (savedInputs.length > i) {
+                config.fieldConfig.default = savedInputs[i].result;
+            }
+            return config;
+        })
+    }
 
     const handleConfigCallback = (result: RiskCalculatorFieldResult) => {
         setInputs(prevState => {
            prevState[result.field.fieldNumber] = result;
            return prevState;
         });
-        dispatch(updateRiskCalculatorInputs(inputs));
+        if (inputs.length === props.configs.length) {
+            dispatch(updateRiskCalculatorInputs(inputs.slice()));
+        }
     };
 
 
-    useEffect(() => {
-        if (savedInputs && savedInputs.length > 0) {
-            // eslint-disable-next-line react-hooks/exhaustive-deps
-            configs = configs.map((config, i) => {
-                config.fieldConfig.default = savedInputs[i].result;
-                return config;
-            })
-        }
-    });
 
 
     const handleTabValChange = (e: ChangeEvent<{}>, newVal: number) => {
