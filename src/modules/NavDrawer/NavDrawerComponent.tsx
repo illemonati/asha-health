@@ -1,5 +1,15 @@
 import React, {useState} from "react";
-import {AppBar, Box, Drawer, IconButton, List, ListItem, ListItemText, Toolbar, Typography} from "@material-ui/core";
+import {
+    AppBar,
+    Box,
+    IconButton,
+    List,
+    ListItem,
+    ListItemText,
+    SwipeableDrawer,
+    Toolbar,
+    Typography
+} from "@material-ui/core";
 import MenuIcon from '@material-ui/icons/Menu';
 import {PageLinks} from "../../utils/links";
 import {Link} from "react-router-dom";
@@ -26,7 +36,7 @@ export default function NavDrawerComponent(props?: NavDrawerComponentProps) {
                     </Typography>
                 </Toolbar>
             </AppBar>
-            <Drawer anchor='left' open={drawerOpen} onClose={() => setDrawerOpen(false)}>
+            <SwipeableDrawer anchor='left' open={drawerOpen} onClose={() => setDrawerOpen(false)} onOpen={()=> setDrawerOpen(true)}>
                 <Box className="drawerBox">
                     <Typography variant="h4">
                         Pages
@@ -43,7 +53,7 @@ export default function NavDrawerComponent(props?: NavDrawerComponentProps) {
                         })}
                     </List>
                 </Box>
-            </Drawer>
+            </SwipeableDrawer>
         </>
     )
 
