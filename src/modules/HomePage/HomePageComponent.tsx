@@ -2,7 +2,8 @@ import React from "react";
 import {Box, Container, Typography} from "@material-ui/core";
 import {PageLinks} from "../../utils/links";
 import {Link} from "react-router-dom";
-
+import logoPng from '../../static-assets/ASHA_logo_2.png';
+import './styles.css';
 
 
 interface HomePageComponentProps {
@@ -18,6 +19,10 @@ export default function HomePageComponent(props: HomePageComponentProps) {
                     <Typography variant="h3">
                         Advocating for Self Health Awareness
                     </Typography>
+                    <br />
+                    <br />
+
+                    <img className="logoImage" src={logoPng} alt="logo" />
                     <br />
                     <br />
 
