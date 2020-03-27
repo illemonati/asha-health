@@ -36,7 +36,11 @@ export default function NavDrawerComponent(props?: NavDrawerComponentProps) {
                     </Typography>
                 </Toolbar>
             </AppBar>
-            <SwipeableDrawer anchor='left' open={drawerOpen} onClose={() => setDrawerOpen(false)} onOpen={()=> setDrawerOpen(true)}>
+            <SwipeableDrawer anchor='left' open={drawerOpen}
+                             onClose={() => setDrawerOpen(false)}
+                             onOpen={()=> setDrawerOpen(true)}
+                             disableSwipeToOpen={false}
+            >
                 <Box className="drawerBox">
                     <Typography variant="h4">
                         Pages
