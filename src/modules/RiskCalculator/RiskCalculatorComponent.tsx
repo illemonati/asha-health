@@ -6,6 +6,7 @@ import './styles.css';
 import RiskCalculatorResultsComponent from "./Results/RiskCalculatorResultsComponent";
 import {updateRiskCalculatorInputs} from "../../actions/riskCalculatorInputs";
 import {useDispatch, useSelector} from "react-redux";
+import SwipeableViews from "react-swipeable-views";
 
 
 interface RiskCalculatorComponentProps {
@@ -19,9 +20,6 @@ export default function RiskCalculatorComponent(props: RiskCalculatorComponentPr
     const [tabVal, setTabVal] = useState(0);
     const dispatch = useDispatch();
     const savedInputs = useSelector<any, RiskCalculatorFieldResults>(state => state.riskCalculatorInputs);
-
-    console.log(savedInputs);
-
 
     let configs = props.configs;
 
@@ -52,6 +50,10 @@ export default function RiskCalculatorComponent(props: RiskCalculatorComponentPr
       setTabVal(newVal);
     };
 
+    const handleSwipe = (index: number) => {
+      setTabVal(index);
+    };
+
 
 
     return (
@@ -73,12 +75,10 @@ export default function RiskCalculatorComponent(props: RiskCalculatorComponentPr
                         <Tab label="results" />
                     </Tabs>
                 </Paper>
-                {
-                    (tabVal === 0) ?
-                    (<RiskCalculatorConfigComponent fields={configs} callBack={handleConfigCallback} />)
-                        :
-                    (<RiskCalculatorResultsComponent inputs={inputs}/>)
-                }
+                <SwipeableViews index={tabVal}  onChangeIndex={handleSwipe}>
+                    <RiskCalculatorConfigComponent fields={configs} callBack={handleConfigCallback} />
+                    <RiskCalculatorResultsComponent inputs={inputs}/>
+                </SwipeableViews>
             </Container>
         </div>
     )
