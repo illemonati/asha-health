@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useState} from "react";
-import {Container, Paper, Tab, Tabs, Typography} from "@material-ui/core";
+import {Button, Container, Paper, Tab, Tabs, Typography} from "@material-ui/core";
 import {RiskCalculatorFieldResult, RiskCalculatorFieldResults, RiskCalculatorFields} from "./RiskCalculatorFormat";
 import RiskCalculatorConfigComponent from "./Configuration/RiskCalculatorConfigComponent";
 import './styles.css';
@@ -7,6 +7,7 @@ import RiskCalculatorResultsComponent from "./Results/RiskCalculatorResultsCompo
 import {updateRiskCalculatorInputs} from "../../actions/riskCalculatorInputs";
 import {useDispatch, useSelector} from "react-redux";
 import SwipeableViews from "react-swipeable-views";
+import {Element, scroller} from "react-scroll/modules";
 
 
 interface RiskCalculatorComponentProps {
@@ -47,23 +48,40 @@ export default function RiskCalculatorComponent(props: RiskCalculatorComponentPr
 
 
     const handleTabValChange = (e: ChangeEvent<{}>, newVal: number) => {
-      setTabVal(newVal);
+        setTabVal(newVal);
+        scrollToTop();
+    };
+
+    const handleButtonClick = () => {
+        setTabVal(1-tabVal);
+        scrollToTop();
     };
 
     const handleSwipe = (index: number) => {
-      setTabVal(index);
+        setTabVal(index);
+        scrollToTop();
+    };
+
+    const scrollToTop = () => {
+        scroller.scrollTo('topOfPage', {
+            duration: 500,
+            delay: 100,
+            smooth: true,
+            offset: -200
+        });
     };
 
 
 
     return (
         <div className="RiskCalculatorComponent">
+            <Element name="topOfPage" />
             <Typography variant='h5'>
                 Risk Calculator for Total Knee or Hip Arthoplasty Based on VA VASQIP Data
             </Typography>
             <br />
             <br />
-            <Container className="containerBox">
+            <Container className="containerBox" >
                 <Paper square>
                     <Tabs value={tabVal}
                           onChange={handleTabValChange}
@@ -80,6 +98,12 @@ export default function RiskCalculatorComponent(props: RiskCalculatorComponentPr
                     <RiskCalculatorResultsComponent inputs={inputs}/>
                 </SwipeableViews>
             </Container>
+            <br />
+            <Button onClick={handleButtonClick}>
+                {(tabVal === 0) ? 'Results': 'Inputs'}
+            </Button>
+            <br />
+            <br />
         </div>
     )
 }
