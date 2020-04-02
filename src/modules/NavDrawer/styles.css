@@ -3,11 +3,14 @@
     text-decoration: none;
 }
 
-.menuIconButton {
-    padding-right: 2vw !important;
-}
 
 .drawerBox {
     width: 300px;
     text-align: center;
+}
+
+
+
+.appBarTitle {
+    padding-left: 2vw;
 }

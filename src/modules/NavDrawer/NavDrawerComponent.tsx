@@ -26,12 +26,12 @@ export default function NavDrawerComponent(props?: NavDrawerComponentProps) {
 
     return (
         <>
-            <AppBar position="sticky" color='primary'>
+            <AppBar position="sticky" color='primary' className="mainAppBar">
                 <Toolbar>
                     <IconButton className="menuIconButton" color="inherit" aria-label="menu" onClick={() => setDrawerOpen(!drawerOpen)}>
                         <MenuIcon/>
                     </IconButton>
-                    <Typography variant='h6'>
+                    <Typography variant='h6' className="appBarTitle">
                         Advocating for Self Health Awareness
                     </Typography>
                 </Toolbar>
