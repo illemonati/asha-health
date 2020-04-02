@@ -2,16 +2,36 @@
 // Alias for an array of QuestionResult
 export type QuestionResults = Array<QuestionResult>;
 
-// Interface for the result of an question
+// Interface for the result of a question
 export interface QuestionResult {
     questionNumber: number,
     choiceType: string,
-    choice?: string|ChoiceType,
-    choices?: Array<string|ChoiceType>,
-    sliderValue?: number,
-    textInputValue?: string,
     extraInfo?: string
 }
+
+
+// Interface for the result of a Slider question
+export interface SliderQuestionResult extends QuestionResult{
+    sliderValue?: number
+}
+
+export interface ChoicesQuestionResult extends QuestionResult {
+    optionalQuestionResults?: QuestionResults
+}
+
+export interface OptionsQuestionResult extends ChoicesQuestionResult {
+    choice?: string|ChoiceType
+}
+
+export interface CheckboxesQuestionsResult extends ChoicesQuestionResult {
+    choices?: Array<string|ChoiceType>,
+}
+
+export interface TextFieldQuestionResult extends QuestionResult{
+    textInputValue?: string
+}
+
+
 
 
 // Alias for an array of questions
@@ -22,11 +42,30 @@ export type Questions = Array<Question>;
 export interface Question {
     question: string,
     choiceType: string,
-    sliderConfig?: SliderConfig,
-    choices?: Array<string|ChoiceType>,
-    textfieldLabel?: string
     required?: boolean
 }
+
+// Interface for slider question
+export interface SliderQuestion extends Question {
+    sliderConfig?: SliderConfig
+}
+
+// Interface for Options and Checkboxes question
+export interface ChoicesQuestion extends Question {
+    choices?: Array<string|ChoiceType>,
+    optionalQuestions?: OptionalQuestions
+}
+
+// Interface for Optional-sub question
+export interface OptionalQuestions {
+    [key: string] : Question
+}
+
+// Interface for TextField question
+export interface TextFieldQuestion extends Question{
+    textfieldLabel?: string
+}
+
 
 // Interface for an options in a Question with the choiceType "options"
 // Used for non string choices (eg. text input)

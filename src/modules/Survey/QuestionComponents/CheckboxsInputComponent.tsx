@@ -1,13 +1,20 @@
 import {Box, Checkbox, FormControlLabel, FormGroup, TextField} from "@material-ui/core";
 import React, {ChangeEvent, useEffect, useState} from "react";
 import {OptionProps} from "./OptionProps";
-import {ChoiceType} from "../QuestionsFormat";
+import {ChoicesQuestion, ChoiceType, QuestionResult, QuestionResults, Questions} from "../QuestionsFormat";
+import SurveyQuestionsComponent from "../SurveyQuestionsComponent";
 
 
-export default function CheckBoxsInputComponent(props: OptionProps) {
+interface CheckboxsInputComponentProps extends OptionProps {
+    question: ChoicesQuestion
+}
+
+
+export default function CheckBoxsInputComponent(props: CheckboxsInputComponentProps) {
     const [choices, setChoices] = useState([] as Array<string | ChoiceType>);
     const [extraInfo, setExtraInfo] = useState("");
-
+    const [optionalQuestions, setOptionalQuestions] = useState([] as Questions);
+    const [optionalQuestionResults, setOptionalQuestionResults] = useState([] as QuestionResults);
 
     const textFieldChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setExtraInfo(e.target.value);
@@ -18,9 +25,31 @@ export default function CheckBoxsInputComponent(props: OptionProps) {
             questionNumber: props.number,
             choiceType: props.question.choiceType,
             choices: choices,
-            extraInfo: extraInfo.length > 0 ? extraInfo : undefined
+            extraInfo: extraInfo.length > 0 ? extraInfo : undefined,
+            optionalQuestionResults: optionalQuestionResults
         });
     };
+
+    const updateOptionalQuestionResults = <T extends QuestionResult>(result: T) => {
+        setOptionalQuestionResults(prevState => {
+            prevState[result.questionNumber] = result;
+            return prevState;
+        });
+    };
+
+
+    useEffect(() => {
+        if (props.question.optionalQuestions) {
+            const opQuests = [] as Questions;
+            Object.keys(props.question.optionalQuestions).forEach((choiceNeeded) => {
+                if (choices.includes(choiceNeeded)) {
+                    opQuests.push(props.question.optionalQuestions![choiceNeeded])
+                }
+            });
+            setOptionalQuestions(opQuests);
+        }
+
+    }, [props.question.optionalQuestions, choices]);
 
     useEffect(() => {
         makeCallback();
@@ -69,9 +98,15 @@ export default function CheckBoxsInputComponent(props: OptionProps) {
                         )
                     }
                     return null;
-
                 })}
             </FormGroup>
+            {(optionalQuestions.length > 0) ? (
+                <Box>
+                    <br />
+                    <br />
+                    <SurveyQuestionsComponent questions={optionalQuestions} updateQuestionResults={updateOptionalQuestionResults} displayNumbers={false}/>
+                </Box>
+            ) : null}
         </Box>
     )
 

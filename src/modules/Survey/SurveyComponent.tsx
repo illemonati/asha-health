@@ -1,11 +1,21 @@
 import React, {useState} from 'react';
-import {Box, Container, Typography, Button} from "@material-ui/core";
-import TextfieldInputComponent from "./QuestionComponents/TextFieldInputComponent";
-import OptionsComponent from "./QuestionComponents/OptionsComponent";
-import SliderInputComponent from "./QuestionComponents/SliderComponent";
-import CheckBoxsInputComponent from "./QuestionComponents/CheckboxsInputComponent";
+import {
+    Box,
+    Container,
+    Typography,
+    Button,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogContentText, DialogActions
+} from "@material-ui/core";
 import {Questions, QuestionResults, QuestionResult} from "./QuestionsFormat";
 import 'firebase/analytics';
+import 'firebase/firestore';
+import firebase from 'firebase/app';
+import './styles.css'
+import ContactsInputComponent from "./ContactsInputComponent";
+import SurveyQuestionsComponent from "./SurveyQuestionsComponent";
 
 
 interface SurveyComponentProps {
@@ -23,31 +33,40 @@ export default function SurveyComponent(props: SurveyComponentProps) {
         email: '',
     });
 
-    const updateQuestionResults = (result: QuestionResult) => {
+    const [submitErrorDialogState, setSubmitErrorDialogState] = useState(false);
+
+    const updateQuestionResults = <T extends QuestionResult>(result: T) => {
         setQuestionResults(prevState => {
             prevState[result.questionNumber] = result;
             return prevState;
         });
     };
+
     const saveToDatabase = async () => {
 
         if (props.firebase.firestore() && props.dbCollectionName) {
 
             const document = await props.firebase.firestore().collection(props.dbCollectionName).add({
                 name: contacts.name,
-                email: contacts.email
+                email: contacts.email,
+                time: Date.now()
             });
 
-            const questionResultsCollection = document.collection('questionResults');
             const batch = props.firebase.firestore().batch();
-            questionResults.forEach((questionResult, i) => {
-                //@ts-ignore
-                Object.keys(questionResult).forEach(key => questionResult[key] === undefined && delete questionResult[key]);
-                const doc = questionResultsCollection.doc(`question-${questionResult.questionNumber}`);
-                batch.set(doc, questionResult);
-            });
-            await batch.commit();
+            await saveToDatabaseDocument(document, 'questionResults', questionResults, batch);
+
         }
+    };
+
+    const saveToDatabaseDocument = async (document: firebase.firestore.DocumentReference, collectionName: string, questionResults: QuestionResults, batch: firebase.firestore.WriteBatch) => {
+        questionResults.forEach((questionResult, i) => {
+            const questionResultsCollection = document.collection(collectionName);
+            //@ts-ignore
+            Object.keys(questionResult).forEach(key => questionResult[key] === undefined && delete questionResult[key]);
+            const doc = questionResultsCollection.doc(`question-${questionResult.questionNumber}`);
+            batch.set(doc, questionResult);
+        });
+        await batch.commit();
     };
 
     const handleSubmit = () => {
@@ -59,7 +78,7 @@ export default function SurveyComponent(props: SurveyComponentProps) {
         for (let contact of Object.keys(contacts)) {
             // @ts-ignore
             if (!contacts[contact]) {
-                alert("Please fill in all contact information!");
+                setSubmitErrorDialogState(true);
                 return;
             }
         }
@@ -74,80 +93,51 @@ export default function SurveyComponent(props: SurveyComponentProps) {
         setSubmitted(true);
     };
 
+
+    const submitErrorDialog = (
+        <Dialog open={submitErrorDialogState}
+                onClose={() => setSubmitErrorDialogState(false)}
+        >
+            <DialogTitle>
+                Please fill in all required information correctly
+            </DialogTitle>
+            <DialogContent>
+                <DialogContentText>
+                    You did not correctly fill out
+                    <div>
+                        <ul>
+                            {Object.keys(contacts).map((contact, i) => {
+                                //@ts-ignore
+                                if (contacts[contact]) return null;
+
+                                return (
+                                    <li key={i}>{contact}</li>
+                                )
+                            })}
+                        </ul>
+                    </div>
+                </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={() => setSubmitErrorDialogState(false)} color="primary" />
+            </DialogActions>
+        </Dialog>
+    );
+
     const survey = (
         <div className="SurveyComponent">
+            {submitErrorDialog}
             <Container maxWidth="md">
                 <Typography variant="h3">
                     Survey
                 </Typography>
                 <br />
                 <br />
-
-                <Box>
-                    <Typography variant="h5">What is your name and email?</Typography>
-                    <br />
-                    <TextfieldInputComponent
-                        question={{question: "What is your name?", choiceType: "textfield", textfieldLabel: 'Name', required: true}}
-                        number={0}
-                        setResultCallback={(result)=>{setContacts(contacts => {
-                            contacts.name = result.textInputValue || '';
-                            return contacts;
-                        })}}
-                    />
-                    <TextfieldInputComponent
-                        question={{question: "What is your email?", choiceType: "textfield", textfieldLabel: 'Email', required: true}}
-                        number={1}
-                        setResultCallback={(result)=>{setContacts(contacts => {
-                            contacts.email = result.textInputValue || '';
-                            return contacts;
-                        })}}
-                    />
-                    <br />
-                    <br />
-                    <br />
-                </Box>
-
-                {props.questions.map((question, i) => {
-
-                    let optionsElement: any = null;
-
-
-                    if (question.choiceType === "options") {
-                        optionsElement = (
-                            <OptionsComponent question={question} number={i} setResultCallback={updateQuestionResults}/>
-                        );
-                    } else if (question.choiceType === "textfield") {
-                        optionsElement = (
-                            <TextfieldInputComponent question={question} number={i} setResultCallback={updateQuestionResults}/>
-                        );
-                    } else if (question.choiceType === "slider") {
-                        optionsElement = (
-                            <SliderInputComponent question={question} number={i} setResultCallback={updateQuestionResults}/>
-                        );
-                    } else if (question.choiceType === "checkboxs") {
-                        optionsElement = (
-                            <CheckBoxsInputComponent question={question} number={i} setResultCallback={updateQuestionResults}/>
-                        );
-                    }
-
-
-
-                    return (
-                        <Box key={i}>
-                            <Typography variant="h5">{` ${i+1}. ${question.question}`}</Typography>
-                            <br />
-
-                            {optionsElement}
-                            <br />
-                            <br />
-                            <br />
-                        </Box>
-                    )
-
-
-                }) }
+                <ContactsInputComponent setContactsCallback={setContacts}/>
                 <br />
                 <br />
+                <SurveyQuestionsComponent questions={props.questions} updateQuestionResults={updateQuestionResults}/>
+
             </Container>
         </div>
     );

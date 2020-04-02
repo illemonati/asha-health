@@ -35,7 +35,13 @@
     "choices": [
       "drugs",
       "alcohol"
-    ]
+    ],
+    "optionalQuestions" : {
+      "drugs": {
+        "question": "How did you get into drugs?",
+        "choiceType": "textfield"
+      }
+    }
   },
   {
     "question": "How often do you get a health checkup?",
@@ -46,6 +52,7 @@
       "step": 1,
       "default": 3,
       "noRange": true,
+      "marks": true,
       "textOptions": [
         "Never get it done",
         "Only when needed",
@@ -64,6 +71,7 @@
       "step": 1,
       "default": 3,
       "noRange": true,
+      "marks": true,
       "textOptions": [
         "Very Poor",
         "Below Average",
@@ -82,6 +90,7 @@
       "step": 1,
       "default": 3,
       "noRange": true,
+      "marks": true,
       "textOptions": [
         "In good physical health (No illness or disabilities)",
         "Mildy physically impaired. (Minor illness or disabilities)",
@@ -100,6 +109,7 @@
       "step": 1,
       "default": 3,
       "noRange": true,
+      "marks": true,
       "textOptions": [
         "Excellent capacity",
         "Good capacity",
@@ -163,6 +173,7 @@
       "step": 1,
       "default": 3,
       "noRange": true,
+      "marks": true,
       "textOptions": [
         "Completely Disagree",
         "Somewhat Disagree",

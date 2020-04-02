@@ -1,10 +1,14 @@
-import {SliderConfig, SliderMark} from "../QuestionsFormat";
+import {SliderConfig, SliderMark, SliderQuestion} from "../QuestionsFormat";
 import React, {useEffect, useState} from "react";
 import {Box, Slider, Typography} from "@material-ui/core";
 import {OptionProps} from "./OptionProps";
 
 
-export default function SliderInputComponent(props: OptionProps) {
+interface SliderInputComponent extends OptionProps {
+    question: SliderQuestion
+}
+
+export default function SliderInputComponent(props: SliderInputComponent) {
 
     const config = props.question.sliderConfig as SliderConfig;
 
@@ -49,6 +53,7 @@ export default function SliderInputComponent(props: OptionProps) {
         <Box>
             <Typography gutterBottom>
                 {config.noRange ? `${valuetext(sliderVal)}` : `${config.start} - ${config.end}`}
+            </Typography>
                 <br />
                 <br />
                 <br />
@@ -65,7 +70,6 @@ export default function SliderInputComponent(props: OptionProps) {
                     marks={config.marks ? marks : true}
 
                 />
-            </Typography>
         </Box>
     )
 }

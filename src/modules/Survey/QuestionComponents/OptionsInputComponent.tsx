@@ -1,12 +1,22 @@
 import React, {ChangeEvent, useEffect, useState} from "react";
 import {Box, FormControlLabel, Radio, RadioGroup, TextField} from "@material-ui/core";
 import {OptionProps} from "./OptionProps";
+import {ChoicesQuestion, QuestionResult, QuestionResults, Questions} from "../QuestionsFormat";
+import SurveyQuestionsComponent from "../SurveyQuestionsComponent";
 
-export default function OptionsComponent(props: OptionProps) {
+
+interface OptionsInputComponentProps extends OptionProps {
+    question: ChoicesQuestion
+}
+
+
+export default function OptionsInputsComponent(props: OptionsInputComponentProps) {
     const question = props.question;
     const questionNumber = props.number;
     const setResultCallback = props.setResultCallback;
     const [value, setValue] = useState(props.question.choices![0]);
+    const [optionalQuestions, setOptionalQuestions] = useState([] as Questions);
+    const [optionalQuestionResults, setOptionalQuestionResults] = useState([] as QuestionResults);
 
     const [extraInfo, setExtraInfo] = useState("");
 
@@ -23,9 +33,31 @@ export default function OptionsComponent(props: OptionProps) {
             questionNumber: questionNumber,
             choiceType: question.choiceType,
             choice: value,
-            extraInfo: extraInfo.length > 0 ? extraInfo : undefined
+            extraInfo: extraInfo.length > 0 ? extraInfo : undefined,
+            optionalQuestionResults: optionalQuestionResults
         })
     };
+
+    const updateOptionalQuestionResults = <T extends QuestionResult>(result: T) => {
+        setOptionalQuestionResults(prevState => {
+            prevState[result.questionNumber] = result;
+            return prevState;
+        });
+    };
+
+
+    useEffect(() => {
+        if (props.question.optionalQuestions) {
+            const opQuests = [] as Questions;
+            Object.keys(props.question.optionalQuestions).forEach((choiceNeeded) => {
+                if (value === choiceNeeded) {
+                    opQuests.push(props.question.optionalQuestions![choiceNeeded])
+                }
+            });
+            setOptionalQuestions(opQuests);
+        }
+
+    }, [props.question.optionalQuestions, value]);
 
 
     useEffect(() => {
@@ -61,6 +93,13 @@ export default function OptionsComponent(props: OptionProps) {
 
                 })}
             </RadioGroup>
+            {(optionalQuestions.length > 0) ? (
+                <Box>
+                    <br />
+                    <br />
+                    <SurveyQuestionsComponent questions={optionalQuestions} updateQuestionResults={updateOptionalQuestionResults} displayNumbers={false}/>
+                </Box>
+            ) : null}
         </Box>
     )
 }
