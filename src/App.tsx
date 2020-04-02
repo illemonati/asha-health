@@ -1,9 +1,8 @@
-import React from 'react';
+import React from "react";
 import './App.css';
 import SurveyComponent from "./modules/Survey/SurveyComponent";
 import questions from './configs/questions.json';
 import firebaseConfig from './configs/firebase.json';
-import {getFirebase} from "./firebase/auth";
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import RiskCalculatorComponent from "./modules/RiskCalculator/RiskCalculatorComponent";
 import HomePageComponent from "./modules/HomePage/HomePageComponent";
@@ -11,12 +10,15 @@ import pageLinks from "./configs/links.json";
 import riskCalculatorConfigs from './configs/riskCalculatorConfig.json';
 import NavDrawerComponent from "./modules/NavDrawer/NavDrawerComponent";
 import {Box} from "@material-ui/core";
+import {useSelector} from "react-redux";
+import SWUpdateSnackbarComponent from "./modules/SWUpdateSnackbar/SWUpdateSnackbarComponent";
+import {initFirebase} from "./firebase/auth";
 
 
 function App() {
 
-    const firebase = getFirebase(firebaseConfig);
-
+    const waitingSW = useSelector<any, ServiceWorker | null>(state => state.waitingSW);
+    initFirebase(firebaseConfig);
     return (
         <Router basename={process.env.PUBLIC_URL}>
             <div className="App">
@@ -26,7 +28,7 @@ function App() {
                     <br />
                     <Switch>
                         <Route path="/survey">
-                            <SurveyComponent questions={questions} firebase={firebase} dbCollectionName={'demo-survey-0'} />
+                            <SurveyComponent questions={questions} dbCollectionName={'demo-survey-0'} />
                         </Route>
                         <Route path="/risk-calculator">
                             <RiskCalculatorComponent configs={riskCalculatorConfigs}/>
@@ -37,6 +39,7 @@ function App() {
                     </Switch>
                 </Box>
             </div>
+            <SWUpdateSnackbarComponent waitingSW={waitingSW}/>
         </Router>
     )
 

@@ -13,14 +13,13 @@ import {Questions, QuestionResults, QuestionResult} from "./QuestionsFormat";
 import 'firebase/analytics';
 import 'firebase/firestore';
 import firebase from 'firebase/app';
-import './styles.css'
+import './styles.css';
 import ContactsInputComponent from "./ContactsInputComponent";
 import SurveyQuestionsComponent from "./SurveyQuestionsComponent";
 
 
 interface SurveyComponentProps {
     questions: Questions,
-    firebase?: any,
     dbCollectionName?: string,
 }
 
@@ -44,15 +43,15 @@ export default function SurveyComponent(props: SurveyComponentProps) {
 
     const saveToDatabase = async () => {
 
-        if (props.firebase.firestore() && props.dbCollectionName) {
+        if (firebase.firestore() && props.dbCollectionName) {
 
-            const document = await props.firebase.firestore().collection(props.dbCollectionName).add({
+            const document = await firebase.firestore().collection(props.dbCollectionName).add({
                 name: contacts.name,
                 email: contacts.email,
                 time: Date.now()
             });
 
-            const batch = props.firebase.firestore().batch();
+            const batch = firebase.firestore().batch();
             await saveToDatabaseDocument(document, 'questionResults', questionResults, batch);
 
         }
@@ -84,7 +83,7 @@ export default function SurveyComponent(props: SurveyComponentProps) {
         }
 
         saveToDatabase().then();
-        const analytics = props.firebase.analytics();
+        const analytics = firebase.analytics();
         console.log(analytics);
         analytics.logEvent(`survey_submitted`, {
             collectionName: props.dbCollectionName,
