@@ -5,6 +5,7 @@ import TextfieldInputComponent from "./QuestionComponents/TextFieldInputComponen
 import SliderInputComponent from "./QuestionComponents/SliderInputComponent";
 import CheckBoxsInputComponent from "./QuestionComponents/CheckboxsInputComponent";
 import {Box, Typography} from "@material-ui/core";
+import './styles.css';
 
 
 interface SurveyQuestionsComponentProps {
@@ -45,7 +46,7 @@ export default function SurveyQuestionsComponent(props: SurveyQuestionsComponent
 
                 return (
                     <Box key={i}>
-                        <Typography variant="h5">{` ${(displayNumbers) ? (i+1) : ''}. ${question.question}`}</Typography>
+                        <Typography variant="h5" className="questionText">{` ${(displayNumbers) ? (i+1) : ''}. ${question.question}`}</Typography>
                         <br />
 
                         {optionsElement}

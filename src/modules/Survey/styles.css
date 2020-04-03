@@ -4,3 +4,7 @@
     white-space: normal !important;
     max-width: 200px;
 }
+
+.questionText {
+    color: red !important;
+}
