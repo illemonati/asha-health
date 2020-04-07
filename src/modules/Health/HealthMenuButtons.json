@@ -5,6 +5,6 @@
     },
     {
         "buttonText": "... Near Me",
-        "linkTo": "#"
+        "linkTo": "/health/near-me"
     }
 ]

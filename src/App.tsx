@@ -17,6 +17,8 @@ import BottomMenuBarComponent from "./modules/BottomMenuBar/BottomMenuBarCompone
 import LifeStyleComponent from "./modules/LifeStyle/LifeStyleComponent";
 import HealthComponent from "./modules/Health/HealthComponent";
 import SettingsComponent from "./modules/Settings/SettingsComponent";
+import LifeStyleResourcesComponent from "./modules/LifeStyle/LifeStyleResources/LifeStyleResourcesComponent";
+import NearMeComponent from "./modules/Health/NearMe/NearMeComponent";
 
 
 function App() {
@@ -37,14 +39,20 @@ function App() {
                         <Route path="/risk-calculator">
                             <RiskCalculatorComponent configs={riskCalculatorConfigs}/>
                         </Route>
-                        <Route path="/lifestyle">
+                        <Route path="/lifestyle" exact>
                             <LifeStyleComponent/>
                         </Route>
-                        <Route path="/health">
+                        <Route path="/health" exact>
                             <HealthComponent/>
                         </Route>
-                        <Route path="/settings">
+                        <Route path="/settings" exact>
                             <SettingsComponent/>
+                        </Route>
+                        <Route path="/lifestyle/resources">
+                            <LifeStyleResourcesComponent />
+                        </Route>
+                        <Route path="/health/near-me">
+                            <NearMeComponent/>
                         </Route>
                         <Route path="/" exact>
                             <HomePageComponent pageLinks={pageLinks}/>

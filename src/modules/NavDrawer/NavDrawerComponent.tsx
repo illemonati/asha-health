@@ -28,9 +28,9 @@ export default function NavDrawerComponent(props?: NavDrawerComponentProps) {
         <>
             <AppBar position="sticky" color='primary' className="mainAppBar">
                 <Toolbar>
-                    <IconButton className="menuIconButton" color="inherit" aria-label="menu" onClick={() => setDrawerOpen(!drawerOpen)}>
-                        <MenuIcon/>
-                    </IconButton>
+                    {/*<IconButton className="menuIconButton" color="inherit" aria-label="menu" onClick={() => setDrawerOpen(!drawerOpen)}>*/}
+                    {/*    <MenuIcon/>*/}
+                    {/*</IconButton>*/}
                     <Typography variant='h6' className="appBarTitle">
                         ASHA
                     </Typography>
