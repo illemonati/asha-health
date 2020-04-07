@@ -13,6 +13,10 @@ import {Box} from "@material-ui/core";
 import {useSelector} from "react-redux";
 import SWUpdateSnackbarComponent from "./modules/SWUpdateSnackbar/SWUpdateSnackbarComponent";
 import {initFirebase} from "./firebase/auth";
+import BottomMenuBarComponent from "./modules/BottomMenuBar/BottomMenuBarComponent";
+import LifeStyleComponent from "./modules/LifeStyle/LifeStyleComponent";
+import HealthComponent from "./modules/Health/HealthComponent";
+import SettingsComponent from "./modules/Settings/SettingsComponent";
 
 
 function App() {
@@ -33,10 +37,23 @@ function App() {
                         <Route path="/risk-calculator">
                             <RiskCalculatorComponent configs={riskCalculatorConfigs}/>
                         </Route>
+                        <Route path="/lifestyle">
+                            <LifeStyleComponent/>
+                        </Route>
+                        <Route path="/health">
+                            <HealthComponent/>
+                        </Route>
+                        <Route path="/settings">
+                            <SettingsComponent/>
+                        </Route>
                         <Route path="/" exact>
                             <HomePageComponent pageLinks={pageLinks}/>
                         </Route>
                     </Switch>
+                    <br />
+                    <br />
+                    <br />
+                    <BottomMenuBarComponent/>
                 </Box>
             </div>
             <SWUpdateSnackbarComponent waitingSW={waitingSW}/>

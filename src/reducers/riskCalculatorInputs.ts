@@ -4,7 +4,7 @@ import {RiskCalculatorFieldResults} from "../modules/RiskCalculator/RiskCalculat
 
 export default function riskCalculatorInputsStateReducer(state=[], action: any) : RiskCalculatorFieldResults {
     switch (action.type) {
-        case 'UPDATE':
+        case 'UPDATE_RISK_CALC_STATE':
             return [...action.payload] as RiskCalculatorFieldResults;
         default:
             return state;

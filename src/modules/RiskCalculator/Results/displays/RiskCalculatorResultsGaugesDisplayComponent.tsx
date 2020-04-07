@@ -65,7 +65,7 @@ function createDiagram(yourRisk: number, averageRisk: number) {
     });
     const yourRiskPathData = arcGen({
         startAngle: -Math.PI/2,
-        endAngle: Math.PI*yourRisk-(Math.PI/2),
+        endAngle: Math.PI*yourRisk/100-(Math.PI/2),
         innerRadius: arcRadius,
         outerRadius: arcRadius + arcWidth
     });

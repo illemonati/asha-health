@@ -2,7 +2,7 @@ import {RiskCalculatorFieldResults} from "../modules/RiskCalculator/RiskCalculat
 
 export function updateRiskCalculatorInputs(newInputs: RiskCalculatorFieldResults) {
     return {
-        type: 'UPDATE',
+        type: 'UPDATE_RISK_CALC_STATE',
         payload: newInputs
     }
 }
