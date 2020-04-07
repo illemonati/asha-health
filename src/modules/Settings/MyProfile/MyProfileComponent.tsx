@@ -76,7 +76,7 @@ export default function MyProfileComponent() {
     return (
         <div className="MyProfileComponent">
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                <Container maxWidth="xs">
+                <Container maxWidth="md">
                     <Grid className="MyProfileComponentMainGrid" container spacing={10} justify="center" alignItems="center">
                         <Grid item xs={6}>
                             <img alt="profile" src={profilePicPlaceHolder} className="MyProfileComponentProfileImage" />
