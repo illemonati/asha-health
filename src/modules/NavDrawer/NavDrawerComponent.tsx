@@ -32,7 +32,7 @@ export default function NavDrawerComponent(props?: NavDrawerComponentProps) {
                     {/*    <MenuIcon/>*/}
                     {/*</IconButton>*/}
                     <Typography variant='h6' className="appBarTitle">
-                        ASHAw
+                        ASHA
                     </Typography>
                 </Toolbar>
             </AppBar>
