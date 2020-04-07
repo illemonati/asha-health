@@ -1,7 +1,7 @@
 [
     {
         "buttonText": "MyProfile",
-        "linkTo": "#"
+        "linkTo": "my-profile"
     },
     {
         "buttonText": "Trending Now",
