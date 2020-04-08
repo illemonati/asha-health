@@ -105,7 +105,7 @@ export default function MyProfileComponent() {
                           alignItems="center">
                         <Grid item xs={6}  onClick={() => setAvatarChooserOpen(true)}>
                             <img alt="profile"
-                                 src={process.env.PUBLIC_URL + 'static/assets/profile-avatars/' + userProfile.avatar}
+                                 src={process.env.PUBLIC_URL + '/static/assets/profile-avatars/' + userProfile.avatar}
                                  className="MyProfileComponentProfileImage"
                             />
                         </Grid>

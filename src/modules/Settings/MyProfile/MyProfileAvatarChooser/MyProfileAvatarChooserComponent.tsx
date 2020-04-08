@@ -32,7 +32,7 @@ export default function MyProfileAvatarChooserComponent(props: MyProfileAvatarCh
                         const iconButtonClass = (props.avatarSelected === avatar) ? "MyProfileAvatarChooserComponentCheckIconChecked" : "MyProfileAvatarChooserComponentCheckIcon";
                         return (
                             <GridListTile key={i} onClick={() => props.avatarCallBack(avatar)}>
-                                <img src={process.env.PUBLIC_URL + 'static/assets/profile-avatars/' + avatar}
+                                <img src={process.env.PUBLIC_URL + '/static/assets/profile-avatars/' + avatar}
                                      alt={avatar}
                                      className="MyProfileAvatarChooserComponentAvatarImage"
                                 />
