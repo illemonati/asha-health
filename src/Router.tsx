@@ -19,12 +19,12 @@ export default function RouterComponent() {
     <>
         <Switch>
             {/* Demo Survey */}
-            <Route path="/survey">
+            <Route path="/survey" excat>
                 <SurveyComponent questions={questions} dbCollectionName={'demo-survey-0'} />
             </Route>
             
             {/* Demo Calculator */}
-            <Route path="/risk-calculator">
+            <Route path="/risk-calculator" exact>
                 <RiskCalculatorComponent configs={riskCalculatorConfigs}/>
             </Route>
             
@@ -32,7 +32,7 @@ export default function RouterComponent() {
             <Route path="/lifestyle" exact>
                 <LifeStyleComponent/>
             </Route>
-            <Route path="/lifestyle/resources">
+            <Route path="/lifestyle/resources" exact>
                 <LifeStyleResourcesComponent />
             </Route>
 
@@ -40,7 +40,7 @@ export default function RouterComponent() {
             <Route path="/health" exact>
                 <HealthComponent/>
             </Route>
-            <Route path="/health/near-me">
+            <Route path="/health/near-me" exact>
                 <NearMeComponent/>
             </Route>
 
@@ -48,7 +48,7 @@ export default function RouterComponent() {
             <Route path="/settings" exact>
                 <SettingsComponent/>
             </Route>
-            <Route path="/my-profile">
+            <Route path="/my-profile" exact>
                 <MyProfileComponent />
             </Route>
 

@@ -1,27 +1,40 @@
 import * as React from 'react';
-import { Grid, Container, Typography, Paper, Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions, Button } from '@material-ui/core';
-import profilePicPlaceHolder from './profilePicPlaceholder.bmp';
+import {
+    Grid,
+    Container,
+    Typography,
+    Paper,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogContentText,
+    TextField,
+    DialogActions,
+    Button
+} from '@material-ui/core';
 import './styles.css';
-import { useState, useEffect, ChangeEvent } from 'react';
+import {useState, useEffect, ChangeEvent} from 'react';
 import UserProfile from './../../../utils/UserProfile';
-import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
+import {MuiPickersUtilsProvider, KeyboardDatePicker} from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { updateUserProfileState } from './../../../actions/userProfileState';
+import {useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
+import {updateUserProfileState} from '../../../actions/userProfileState';
 import IconButton from '@material-ui/core/IconButton';
 import CreateIcon from '@material-ui/icons/Create';
-
+import MyProfileAvatarChooserComponent from "./MyProfileAvatarChooser/MyProfileAvatarChooserComponent";
+import avatars from './avatars.json';
 
 
 export default function MyProfileComponent() {
     const [userProfile, setUserProfile] = useState(useSelector<any, UserProfile>(state => state.userProfileState));
     const [nameUpdateDialogueOpen, setNameUpdateDialogueOpen] = useState(false);
+    const [avatarChooserOpen, setAvatarChooserOpen] = useState(false);
     const dispatch = useDispatch();
     const handleBirthDateChange = (newBirthDate: Date | null) => {
         setUserProfile(profile => {
             profile.birthDate = (newBirthDate === null) ? (new Date()).toString() : newBirthDate.toString();
-            return { ...profile };
+            return {...profile};
         })
     };
 
@@ -32,9 +45,16 @@ export default function MyProfileComponent() {
         }
         setUserProfile(profile => {
             profile.name = newName;
-            return { ...profile };
+            return {...profile};
         })
-    }
+    };
+
+    const handleAvatarChange = (newAvatar: string) => {
+        setUserProfile(profile => {
+            profile.avatar = newAvatar;
+            return {...profile};
+        })
+    };
 
     useEffect(() => {
         dispatch(updateUserProfileState(userProfile));
@@ -50,16 +70,20 @@ export default function MyProfileComponent() {
                 <DialogContentText>
                     Enter a new Name (max 20 characters)
                 </DialogContentText>
-                <form className="nameChangeForm" 
-                      noValidate 
-                      autoComplete="off" 
-                      onSubmit={(e) => {setNameUpdateDialogueOpen(false); e.preventDefault(); return false;}}>
+                <form className="nameChangeForm"
+                      noValidate
+                      autoComplete="off"
+                      onSubmit={(e) => {
+                          setNameUpdateDialogueOpen(false);
+                          e.preventDefault();
+                          return false;
+                      }}>
                     <TextField autoFocus
-                            margin="dense"
-                            label="name"
-                            fullWidth
-                            onChange={handleNameChange}
-                            value={userProfile.name}
+                               margin="dense"
+                               label="name"
+                               fullWidth
+                               onChange={handleNameChange}
+                               value={userProfile.name}
                     />
                 </form>
             </DialogContent>
@@ -70,23 +94,28 @@ export default function MyProfileComponent() {
             </DialogActions>
 
         </Dialog>
-    )
+    );
 
 
     return (
         <div className="MyProfileComponent">
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <Container maxWidth="md">
-                    <Grid className="MyProfileComponentMainGrid" container spacing={10} justify="center" alignItems="center">
-                        <Grid item xs={6}>
-                            <img alt="profile" src={profilePicPlaceHolder} className="MyProfileComponentProfileImage" />
+                    <Grid className="MyProfileComponentMainGrid" container spacing={10} justify="center"
+                          alignItems="center">
+                        <Grid item xs={6}  onClick={() => setAvatarChooserOpen(true)}>
+                            <img alt="profile"
+                                 src={process.env.PUBLIC_URL + '/assets/profile-avatars/' + userProfile.avatar}
+                                 className="MyProfileComponentProfileImage"
+                            />
                         </Grid>
                         <Grid item xs={6} className="MyProfileComponentNameGrid">
                             <Typography className="MyProfileComponentNameDisplay" variant="h4">
                                 {userProfile.name}
                             </Typography>
-                            <IconButton color="primary" aria-label="change name" component="span" onClick={() => setNameUpdateDialogueOpen(true)}>
-                                <CreateIcon />
+                            <IconButton color="primary" aria-label="change name" component="span"
+                                        onClick={() => setNameUpdateDialogueOpen(true)}>
+                                <CreateIcon/>
                             </IconButton>
 
                         </Grid>
@@ -106,11 +135,15 @@ export default function MyProfileComponent() {
                                     />
                                 </div>
                             </Grid>
-                            <br />
+                            <br/>
                         </Paper>
                     </Grid>
                 </Container>
                 {nameUpdateDialogue}
+                <MyProfileAvatarChooserComponent avatars={avatars} open={avatarChooserOpen}
+                                                 avatarCallBack={handleAvatarChange}
+                                                 avatarSelected={userProfile.avatar}
+                                                 setOpenState={setAvatarChooserOpen}/>
             </MuiPickersUtilsProvider>
         </div>
     );
