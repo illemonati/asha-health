@@ -12,6 +12,7 @@ import questions from './configs/questions.json';
 import {Switch, Route} from "react-router-dom";
 import pageLinks from "./configs/links.json";
 import MyProfileComponent from './modules/Settings/MyProfile/MyProfileComponent';
+import MapComponent from "./modules/Map/MapComponent";
 
 
 export default function RouterComponent() {
@@ -51,6 +52,9 @@ export default function RouterComponent() {
             <Route path="/my-profile" exact>
                 <MyProfileComponent />
             </Route>
+
+            {/* Map */}
+            <Route path="/map/query/" component={MapComponent} />
 
             {/* HomePage */}
             <Route path="/" exact>

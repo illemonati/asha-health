@@ -1,0 +1,10 @@
+
+.MapComponentMainMap {
+    height: 100%;
+    width: 100%;
+}
+
+.MapComponent {
+    height: 80vh;
+    width: 100%;
+}
