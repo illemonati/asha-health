@@ -5,7 +5,7 @@ import UserProfile from './../utils/UserProfile';
 const defaultProfile = {
     name: "A Person",
     birthDate: (new Date()).toString(),
-    avatar: "black-hole.bmp",
+    avatar: "Black Hole",
 };
 
 export default function userProfileStateReducer(state=defaultProfile, action: any) : UserProfile {
