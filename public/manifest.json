@@ -3,7 +3,7 @@
     "short_name": "ASHA",
     "description": "Advocating For Self Health Awareness",
     "lang": "en",
-    "start_url": "/",
+    "start_url": "/asha-health",
     "scope": "/asha-health/",
     "display": "fullscreen",
     "theme_color": "#3F51B5",
