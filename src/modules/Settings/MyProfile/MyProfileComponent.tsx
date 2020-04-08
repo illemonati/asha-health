@@ -10,7 +10,7 @@ import {
     DialogContentText,
     TextField,
     DialogActions,
-    Button
+    Button,
 } from '@material-ui/core';
 import './styles.css';
 import {useState, useEffect, ChangeEvent} from 'react';
@@ -46,6 +46,14 @@ export default function MyProfileComponent() {
         }
         setUserProfile(profile => {
             profile.name = newName;
+            return {...profile};
+        })
+    };
+
+    const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const newEmail = event.currentTarget.value;
+        setUserProfile(profile => {
+            profile.email = newEmail;
             return {...profile};
         })
     };
@@ -104,7 +112,7 @@ export default function MyProfileComponent() {
                 <Container maxWidth="md">
                     <Grid className="MyProfileComponentMainGrid" container spacing={10} justify="center"
                           alignItems="center">
-                        <Grid item xs={6}  onClick={() => setAvatarChooserOpen(true)}>
+                        <Grid item xs={6} onClick={() => setAvatarChooserOpen(true)}>
                             <img alt="profile"
                                  src={avatars[userProfile.avatar]}
                                  className="MyProfileComponentProfileImage"
@@ -123,18 +131,27 @@ export default function MyProfileComponent() {
 
                         <Paper className="MyProfileComponentPaper" variant="outlined">
                             <Grid item xs>
-                                <div>
-                                    <KeyboardDatePicker
-                                        margin="normal"
-                                        label="Birth Day"
-                                        format="MM/dd/yyyy"
-                                        value={new Date(userProfile.birthDate)}
-                                        onChange={handleBirthDateChange}
-                                        KeyboardButtonProps={{
-                                            'aria-label': 'change date',
-                                        }}
-                                    />
-                                </div>
+                                <KeyboardDatePicker
+                                    margin="normal"
+                                    label="Birth Day"
+                                    format="MM/dd/yyyy"
+                                    value={new Date(userProfile.birthDate)}
+                                    onChange={handleBirthDateChange}
+                                    className="MyProfileComponentDatePicker"
+                                    KeyboardButtonProps={{
+                                        'aria-label': 'change date',
+                                    }}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <br/>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField label="Email"
+                                           className="MyProfileComponentEmailField"
+                                           value={userProfile.email || ""}
+                                           onChange={handleEmailChange}
+                                />
                             </Grid>
                             <br/>
                         </Paper>

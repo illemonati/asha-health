@@ -23,3 +23,7 @@
 .MyProfileComponentNameDisplay {
     white-space: pre-wrap;
 }
+
+.MyProfileComponentEmailField, .MyProfileComponentDatePicker {
+    width: 80%;
+}
