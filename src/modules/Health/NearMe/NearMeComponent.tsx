@@ -1,7 +1,7 @@
 import React from "react";
 import {Box, Container, Typography} from "@material-ui/core";
 import MenuButtonsComponent from "../../MenuButtons/MenuButtonsComponent";
-import menuButtons from "./NearMeMenuButtons.json";
+import menuButtons from "./NearMeMenuButtons";
 
 export default function NearMeComponent() {
     return (
