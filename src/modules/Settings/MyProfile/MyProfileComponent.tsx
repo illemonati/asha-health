@@ -23,7 +23,7 @@ import {updateUserProfileState} from '../../../actions/userProfileState';
 import IconButton from '@material-ui/core/IconButton';
 import CreateIcon from '@material-ui/icons/Create';
 import MyProfileAvatarChooserComponent from "./MyProfileAvatarChooser/MyProfileAvatarChooserComponent";
-import avatars from './avatars.json';
+import avatars from './avatars';
 
 
 export default function MyProfileComponent() {
@@ -37,6 +37,7 @@ export default function MyProfileComponent() {
             return {...profile};
         })
     };
+
 
     const handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
         const newName = event.currentTarget.value;
@@ -105,7 +106,7 @@ export default function MyProfileComponent() {
                           alignItems="center">
                         <Grid item xs={6}  onClick={() => setAvatarChooserOpen(true)}>
                             <img alt="profile"
-                                 src={process.env.PUBLIC_URL + '/static/assets/profile-avatars/' + userProfile.avatar}
+                                 src={avatars[userProfile.avatar]}
                                  className="MyProfileComponentProfileImage"
                             />
                         </Grid>
