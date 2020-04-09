@@ -8,6 +8,7 @@ import {updateRiskCalculatorInputs} from "../../actions/riskCalculatorInputs";
 import {useDispatch, useSelector} from "react-redux";
 import SwipeableViews from "react-swipeable-views";
 import {Element, scroller} from "react-scroll/modules";
+import RiskCalculatorIntroComponent from "./Intro/RiskCalculatorIntroComponent";
 
 
 interface RiskCalculatorComponentProps {
@@ -19,6 +20,7 @@ export default function RiskCalculatorComponent(props: RiskCalculatorComponentPr
     //eslint-disable-next-line
     const [inputs, setInputs] = useState([] as RiskCalculatorFieldResults);
     const [tabVal, setTabVal] = useState(0);
+    const [introOpen, setIntroOpen] = useState(true);
     const dispatch = useDispatch();
     const savedInputs = useSelector<any, RiskCalculatorFieldResults>(state => state.riskCalculatorInputs);
 
@@ -75,6 +77,7 @@ export default function RiskCalculatorComponent(props: RiskCalculatorComponentPr
 
     return (
         <div className="RiskCalculatorComponent">
+            <RiskCalculatorIntroComponent open={introOpen} setOpen={setIntroOpen}/>
             <Element name="topOfPage" />
             <Typography variant='h5'>
                 Risk Calculator for Total Knee or Hip Arthoplasty Based on VA VASQIP Data
