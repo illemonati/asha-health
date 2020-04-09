@@ -25,7 +25,7 @@ function AllDoneScreen() {
     return (
         <>
             <DialogTitle>
-                All Done!
+                Thank You
             </DialogTitle>
             <DialogContent>
             </DialogContent>
@@ -57,9 +57,6 @@ function InfoScreen() {
                 </Typography>
                 <Typography variant="subtitle1">
                     Please fill in all Fields as best as you can.
-                </Typography>
-                <Typography variant="subtitle1">
-                    Thank you
                 </Typography>
             </DialogContent>
         </>

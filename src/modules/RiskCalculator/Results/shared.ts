@@ -1,5 +1,7 @@
 import {RiskCalculatorFieldResults} from "../RiskCalculatorFormat";
 
 export interface RiskCalculatorResultsComponentProps {
-    inputs: RiskCalculatorFieldResults
+    inputs: RiskCalculatorFieldResults,
+    comparisonInputs: RiskCalculatorFieldResults,
+    comparisonModeState: boolean
 }

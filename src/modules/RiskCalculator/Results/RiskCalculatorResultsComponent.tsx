@@ -11,7 +11,6 @@ import RiskCalculatorResultsTableDisplayComponent from "./displays/RiskCalculato
 import RiskCalculatorResultsGaugesDisplayComponent from "./displays/RiskCalculatorResultsGaugesDisplayComponent";
 
 
-
 export default function RiskCalculatorResultsComponent(props: RiskCalculatorResultsComponentProps) {
 
     const [tabVal, setTabVal] = useState(0);
@@ -24,8 +23,8 @@ export default function RiskCalculatorResultsComponent(props: RiskCalculatorResu
 
     return (
         <div className="RiskCalculatorResultsComponent">
-            <br />
-            <br />
+            <br/>
+            <br/>
             <Container className="container">
                 <Paper square>
                     <Tabs value={tabVal}
@@ -34,15 +33,19 @@ export default function RiskCalculatorResultsComponent(props: RiskCalculatorResu
                           centered={true}
                           textColor={"primary"}
                     >
-                        <Tab label="Table Display" />
-                        <Tab label="Gauges Display" />
+                        <Tab label="Table Display"/>
+                        <Tab label="Gauges Display"/>
                     </Tabs>
                 </Paper>
-                <br />
-                <br />
-                <SwipeableViews index={tabVal}  onChangeIndex={handleSwipe} className="displaySwipeDiv">
-                    <RiskCalculatorResultsTableDisplayComponent inputs={props.inputs}/>
-                    <RiskCalculatorResultsGaugesDisplayComponent inputs={props.inputs}/>
+                <br/>
+                <br/>
+                <SwipeableViews index={tabVal} onChangeIndex={handleSwipe} className="displaySwipeDiv">
+                    <RiskCalculatorResultsTableDisplayComponent inputs={props.inputs}
+                                                                comparisonModeState={props.comparisonModeState}
+                                                                comparisonInputs={props.comparisonInputs}/>
+                    <RiskCalculatorResultsGaugesDisplayComponent inputs={props.inputs}
+                                                                 comparisonModeState={props.comparisonModeState}
+                                                                 comparisonInputs={props.comparisonInputs}/>
                 </SwipeableViews>
             </Container>
         </div>

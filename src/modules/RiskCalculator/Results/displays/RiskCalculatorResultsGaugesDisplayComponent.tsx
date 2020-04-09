@@ -10,16 +10,30 @@ export default function RiskCalculatorResultsGaugesDisplayComponent(props: RiskC
     return (
         <div className="RiskCalculatorResultsGaugesDisplayComponent">
             <Grid container spacing={2} className="GaugeGrid">
-                <Grid item xs={6}>
+                <Grid item xs={props.comparisonModeState ? 6 : 12}>
                     <Paper variant="outlined">
                         <DiagramComponent yourRisk={calculateMortalityRisk(props.inputs)} averageRisk={0.13} name="Risk of death within 30 days"/>
                     </Paper>
                 </Grid>
-                <Grid item xs={6}>
+                {props.comparisonModeState && (
+                    <Grid item xs={6}>
+                        <Paper variant="outlined">
+                            <DiagramComponent yourRisk={calculateMortalityRisk(props.comparisonInputs)} averageRisk={0.13} name="Risk of death within 30 days"/>
+                        </Paper>
+                    </Grid>
+                )}
+                <Grid item xs={props.comparisonModeState ? 6 : 12}>
                     <Paper variant="outlined">
                         <DiagramComponent yourRisk={calculateCardiacRisk(props.inputs)} averageRisk={0.29} name="Risk of Cardiac Complications within 30 days"/>
                     </Paper>
                 </Grid>
+                {props.comparisonModeState && (
+                    <Grid item xs={6}>
+                        <Paper variant="outlined">
+                            <DiagramComponent yourRisk={calculateCardiacRisk(props.comparisonInputs)} averageRisk={0.29} name="Risk of Cardiac Complications within 30 days"/>
+                        </Paper>
+                    </Grid>
+                )}
             </Grid>
         </div>
     )
@@ -82,7 +96,7 @@ function createDiagram(yourRisk: number, averageRisk: number) {
     svg.append('text')
         .attr('x', (arcRadius+arcWidth)/2)
         .attr('y', (arcRadius+arcWidth)*2)
-        .text(yourRisk.toFixed(5));
+        .text(yourRisk.toFixed(4) + '%');
     svg.append('text')
         .attr('x', (arcRadius+arcWidth)*0.20)
         .attr('y', (arcRadius+arcWidth)*0.25)
