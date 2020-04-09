@@ -4,7 +4,6 @@ import firebaseConfig from './configs/firebase.json';
 import {BrowserRouter as Router} from "react-router-dom";
 import pageLinks from "./configs/links.json";
 import NavDrawerComponent from "./modules/NavDrawer/NavDrawerComponent";
-import {Box} from "@material-ui/core";
 import {useSelector} from "react-redux";
 import SWUpdateSnackbarComponent from "./modules/SWUpdateSnackbar/SWUpdateSnackbarComponent";
 import {initFirebase} from "./firebase/auth";
@@ -19,16 +18,14 @@ function App() {
     return (
         <Router basename={process.env.PUBLIC_URL}>
             <div className="App">
-                <Box>
-                    <NavDrawerComponent pageLinks={pageLinks}/>
-                    <br />
-                    <br />
-                    <RouterComponent />
-                    <br />
-                    <br />
-                    <br />
+                <NavDrawerComponent pageLinks={pageLinks}/>
+                <div className="AppMainComponent">
+                    <RouterComponent/>
+                </div>
+
+                <div className="AppBottom">
                     <BottomMenuBarComponent/>
-                </Box>
+                </div>
             </div>
             <SWUpdateSnackbarComponent waitingSW={waitingSW}/>
         </Router>

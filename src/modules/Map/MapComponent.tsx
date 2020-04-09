@@ -1,4 +1,4 @@
-import React, {ReactNode} from 'react'
+import React, {ReactNode, useEffect, useState} from 'react'
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
 import './styles.css';
 import {LatLng, LatLngExpression} from "leaflet";
@@ -9,7 +9,6 @@ import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import L from 'leaflet';
 import {MapPoints} from "./MapPointFormat";
-
 
 interface MapComponentProps {
     kind: 'MapComponentProps'
@@ -42,21 +41,41 @@ const MapComponent: React.FC<MapComponentProps | RouteComponentProps> = (props: 
         center = new LatLng(centerLat, centerLng);
     }
 
+    // This is a hack - change it in future
+    const [mapStyle, setMapStyle] = useState({height: window.innerHeight});
+    useEffect(() => {
+        const resizeFunction = () => {
+            const bottomBarHeight = document.querySelector('.bottomNavActions')?.getBoundingClientRect().height;
+            const mainAppBarHeight = document.querySelector('.mainAppBar')?.getBoundingClientRect().height;
+            const style = {
+                height: window.innerHeight-(bottomBarHeight||0) - (mainAppBarHeight||0) - window.innerHeight*0.01
+            };
+            setMapStyle(style);
+        };
+        window.addEventListener('resize', () => {
+            resizeFunction();
+        });
+        resizeFunction();
+    }, []);
+
+
+    
+    
     return (
-        <div className="MapComponent">
-            <Map center={center} zoom={12} className="MapComponentMainMap">
-                <TileLayer
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
-                {mapPoints?.map((mapPoint, i) => {
-                    const coord = new LatLng(mapPoint.lat, mapPoint.lng);
-                    return (
-                        <Marker position={coord} key={i}>
-                            <Popup>{mapPoint.popUpString}</Popup>
-                        </Marker>
-                    )
-                })}
-            </Map>
+        <div className="MapComponent" style={mapStyle}>
+                <Map center={center} zoom={12} className="MapComponentMainMap">
+                    <TileLayer
+                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    />
+                    {mapPoints?.map((mapPoint, i) => {
+                        const coord = new LatLng(mapPoint.lat, mapPoint.lng);
+                        return (
+                            <Marker position={coord} key={i}>
+                                <Popup>{mapPoint.popUpString}</Popup>
+                            </Marker>
+                        )
+                    })}
+                </Map>
         </div>
     )
 };
