@@ -1,4 +1,4 @@
-import React, {ReactNode, useEffect, useState} from 'react'
+import React, {CSSProperties, ReactNode, useEffect, useState} from 'react'
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
 import './styles.css';
 import {LatLng, LatLngExpression} from "leaflet";
@@ -40,15 +40,15 @@ const MapComponent: React.FC<MapComponentProps | RouteComponentProps> = (props: 
         }
         center = new LatLng(centerLat, centerLng);
     }
-
-    // This is a hack - change it in future
-    const [mapStyle, setMapStyle] = useState({height: window.innerHeight});
+    
+    const [mapStyle, setMapStyle] = useState({height: window.innerHeight, top: 0} as CSSProperties);
     useEffect(() => {
         const resizeFunction = () => {
             const bottomBarHeight = document.querySelector('.bottomNavActions')?.getBoundingClientRect().height;
             const mainAppBarHeight = document.querySelector('.mainAppBar')?.getBoundingClientRect().height;
             const style = {
-                height: window.innerHeight-(bottomBarHeight||0) - (mainAppBarHeight||0) - window.innerHeight*0.01
+                height: window.innerHeight-(bottomBarHeight||0) - (mainAppBarHeight||0),
+                top: (mainAppBarHeight || 0)
             };
             setMapStyle(style);
         };
@@ -56,6 +56,9 @@ const MapComponent: React.FC<MapComponentProps | RouteComponentProps> = (props: 
             resizeFunction();
         });
         resizeFunction();
+        return () => {
+            window.removeEventListener('resize', resizeFunction);
+        }
     }, []);
 
 
