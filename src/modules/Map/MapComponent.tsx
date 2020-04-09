@@ -4,6 +4,10 @@ import './styles.css';
 import {LatLng, LatLngExpression} from "leaflet";
 import {RouteComponentProps} from 'react-router-dom';
 import * as queryString from 'querystring';
+import 'leaflet/dist/leaflet.css';
+import icon from 'leaflet/dist/images/marker-icon.png';
+import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+import L from 'leaflet';
 import {MapPoints} from "./MapPointFormat";
 
 
@@ -14,6 +18,11 @@ interface MapComponentProps {
     children?: ReactNode
 }
 
+let DefaultIcon = L.icon({
+    iconUrl: icon,
+    shadowUrl: iconShadow
+});
+L.Marker.prototype.options.icon = DefaultIcon;
 
 const MapComponent: React.FC<MapComponentProps | RouteComponentProps> = (props: MapComponentProps | RouteComponentProps) => {
     let center: LatLngExpression;
