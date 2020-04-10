@@ -28,7 +28,7 @@ export default function HomePageComponent(props: HomePageComponentProps) {
                     <br />
 
                     <Typography className="homePageTitle" variant="h4">
-                        Current SARS-CoV-2 news
+                        Current SARS-CoV-2 news qwertyuiopasdfghjklzxcvbnm
                     </Typography>
                     <br />
                     <Container maxWidth="sm">
