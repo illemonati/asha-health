@@ -17,7 +17,7 @@ export default function HomePageComponent(props: HomePageComponentProps) {
             <Container maxWidth="md">
                 <Box margin="auto" justifyContent="center">
                     <Typography variant="h3">
-                        Advocating for Self Health Awareness
+                        beep beep imma sheep
                     </Typography>
                     <br />
                     <br />
