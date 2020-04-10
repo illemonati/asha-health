@@ -29,6 +29,7 @@ export default function HomePageComponent(props: HomePageComponentProps) {
 
                     <Typography className="homePageTitle" variant="h4">
                         Current SARS-CoV-2 news
+						Asha health app gaining support!
                     </Typography>
                     <br />
                     <Container maxWidth="sm">
