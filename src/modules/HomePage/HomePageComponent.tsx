@@ -18,6 +18,7 @@ export default function HomePageComponent(props: HomePageComponentProps) {
                 <Box margin="auto" justifyContent="center">
                     <Typography variant="h3">
                         beep beep imma sheep
+                        meow meow imma cow
                     </Typography>
                     <br />
                     <br />
