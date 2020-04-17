@@ -13,6 +13,7 @@ import {Switch, Route} from "react-router-dom";
 import pageLinks from "./configs/links.json";
 import MyProfileComponent from './modules/Settings/MyProfile/MyProfileComponent';
 import MapComponent from "./modules/Map/MapComponent";
+import FoodBanksMapComponent from "./modules/Map/SpecificMaps/FoodBanksComponent";
 
 
 export default function RouterComponent() {
@@ -55,6 +56,9 @@ export default function RouterComponent() {
 
             {/* Map */}
             <Route path="/map/query/" component={MapComponent} />
+            <Route path="/map/food-banks/" exact>
+                <FoodBanksMapComponent />
+            </Route>
 
             {/* HomePage */}
             <Route path="/" exact>

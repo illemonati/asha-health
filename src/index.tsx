@@ -7,15 +7,20 @@ import { createStore } from 'redux';
 import rootReducer from "./reducers";
 import { Provider } from "react-redux";
 import { persistStore, persistReducer } from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
 import {PersistGate} from "redux-persist/integration/react";
 import {swNewUpdate} from "./actions/SWUpdate";
+import localForage from 'localforage';
 
+localForage.config({
+    name: 'asha-health',
+    storeName: 'asha_health',
+    description: 'storage for the asha-health webapp'
+});
 
 const persistConfig = {
     key: 'root',
-    storage: storage,
-    blacklist: ['waitingSW']
+    storage: localForage,
+    // blacklist: ['waitingSW']
 };
 
 

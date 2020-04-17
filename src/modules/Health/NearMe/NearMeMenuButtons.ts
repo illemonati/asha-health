@@ -15,23 +15,6 @@ const FreeClinics = {
     ]
 };
 
-const FoodBanks = {
-    centerLng: -122.09992,
-    centerLat: 37.42531,
-    mapPoints: [
-        {
-            lng: -122.115187,
-            lat: 37.423269,
-            popUpString: 'South Palo Alto Food Closet'
-        },
-        {
-            lng: -122.078438,
-            lat: 37.396917,
-            popUpString: 'Community Services Agency'
-        }
-    ]
-};
-
 
 const NearMeMenuButtons = [
     {
@@ -40,7 +23,7 @@ const NearMeMenuButtons = [
     },
     {
         buttonText: "Food Banks",
-        linkTo: "/map/query/?"+mapQueryToString(FoodBanks)
+        linkTo: "/map/food-banks/"
     },
     {
         buttonText: "Mobile Showers",
