@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {latLng, LatLng, LatLngExpression} from "leaflet";
+import {LatLng} from "leaflet";
 import * as xmlParser from 'fast-xml-parser'
 
 export const getLatLngFromQuery = async (query: string): Promise<LatLng | null> => {
