@@ -15,14 +15,19 @@ export const getLatLngFromQuery = async (query: string): Promise<LatLng | null> 
     return new LatLng(lat, lng);
 };
 
-export const getBrowserLatLng = async () => {
-    const loc = await getPosition() as any;
-    const coords = loc['coords'] as any;
+export const getBrowserLatLng = async () : Promise<LatLng> => {
 
-    const latitude = parseFloat(coords['latitude']);
-    const longitude = parseFloat(coords['longitude']);
+    try {
+        const loc = await getPosition() as any;
+        const coords = loc['coords'] as any;
 
-    return new LatLng(latitude, longitude);
+        const latitude = parseFloat(coords['latitude']);
+        const longitude = parseFloat(coords['longitude']);
+
+        return new LatLng(latitude, longitude);
+    } catch (e) {
+        throw e;
+    }
 
 };
 
@@ -57,3 +62,7 @@ export const getFoodBankFromZip = async (zip: number) => {
     });
     return listOfFoodBanks;
 };
+
+
+
+

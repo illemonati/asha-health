@@ -14,6 +14,7 @@ import pageLinks from "./configs/links.json";
 import MyProfileComponent from './modules/Settings/MyProfile/MyProfileComponent';
 import MapComponent from "./modules/Map/MapComponent";
 import FoodBanksMapComponent from "./modules/Map/SpecificMaps/FoodBanksComponent";
+import FreeClinicsMapComponent from "./modules/Map/SpecificMaps/FreeClinicsComponent";
 
 
 export default function RouterComponent() {
@@ -58,6 +59,9 @@ export default function RouterComponent() {
             <Route path="/map/query/" component={MapComponent} />
             <Route path="/map/food-banks/" exact>
                 <FoodBanksMapComponent />
+            </Route>
+            <Route path="/map/free-clinics/" exact>
+                <FreeClinicsMapComponent />
             </Route>
 
             {/* HomePage */}

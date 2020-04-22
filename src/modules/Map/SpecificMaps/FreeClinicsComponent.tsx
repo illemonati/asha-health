@@ -9,9 +9,10 @@ import L from 'leaflet';
 import {MapPoints} from "../MapPointFormat";
 import {
     getBrowserLatLng,
-    getFoodBankFromZip,
+    getLatLngFromQuery,
     getZipFromLatLng
 } from "../map-utils";
+import {getFreeClinicsFromZip, getFullFreeClinicAddress} from "../FreeClinic";
 
 
 let DefaultIcon = L.icon({
@@ -20,15 +21,15 @@ let DefaultIcon = L.icon({
 });
 L.Marker.prototype.options.icon = DefaultIcon;
 
-const FoodBanksMapComponent: React.FC = () => {
+const FreeClinicsMapComponent: React.FC = () => {
 
     const [mapPoints, setMapPoints] = useState([] as MapPoints);
     const [center, setCenter] = useState(new LatLng(37.403944, -122.166903));
     const [zoomLevel, setZoomLevel] = useState(10);
-    const [listOfFoodBanks, setListOfFoodBanks] = useState([] as any[]);
+    const [listOfFreeClinics, setListOfFreeClinics] = useState([] as any[]);
 
 
-    const refreshListOfFoodBanks = useCallback(
+    const refreshListOfFreeClinics = useCallback(
         async () => {
             try {
                 const zips = new Set<number>();
@@ -41,17 +42,19 @@ const FoodBanksMapComponent: React.FC = () => {
                     }
                 }
 
+
+
                 // @ts-ignore
                 for (const zip of zips.values()) {
-                    for (let i = zip - 1; i < zip + 1; ++i) {
-                        const banks = await getFoodBankFromZip(i);
-                        setListOfFoodBanks(foodbanks => {
-                            for (let bank of banks) {
-                                if (!(foodbanks.some(e => e['FullName'] === bank['FullName']))) {
-                                    foodbanks.push(bank);
+                    for (let i = zip ; i < zip + 1; ++i) {
+                        const clinics = await getFreeClinicsFromZip(i);
+                        setListOfFreeClinics(freeClinics => {
+                            for (let clinic of clinics) {
+                                if (!(freeClinics.some(e => e['name'] === clinic['name']))) {
+                                    freeClinics.push(clinic);
                                 }
                             }
-                            return foodbanks.slice();
+                            return freeClinics.slice();
                         });
                     }
                 }
@@ -67,25 +70,28 @@ const FoodBanksMapComponent: React.FC = () => {
         getBrowserLatLng()
             .then(c => setCenter(c))
             .catch(e => console.log('Could not determine browser location : ' + e));
-        refreshListOfFoodBanks().then();
+        refreshListOfFreeClinics().then();
         // eslint-disable-next-line
     }, []);
 
     useEffect(() => {
-        setMapPoints((_) => {
+        const f = async () => {
             const npoints = [] as MapPoints;
-            listOfFoodBanks.forEach((foodBank: any) => {
-                const point = {
-                    lat: parseFloat((foodBank['MailAddress']['Latitude'])),
-                    lng: parseFloat(foodBank['MailAddress']['Longitude']),
-                    popUpString: foodBank['FullName']
-                };
-                npoints.push(point);
-            });
-
-            return npoints;
-        });
-    }, [listOfFoodBanks]);
+            for (const freeClinic of listOfFreeClinics) {
+                try {
+                    const latLng = await getLatLngFromQuery(getFullFreeClinicAddress(freeClinic));
+                    const point = {
+                        popUpString: freeClinic['name'],
+                        lat: latLng!.lat!,
+                        lng: latLng!.lng!
+                    };
+                    npoints.push(point);
+                } catch (e) {}
+            }
+            setMapPoints(npoints);
+        };
+        f().then();
+    }, [listOfFreeClinics]);
 
 
     const [mapStyle, setMapStyle] = useState({height: window.innerHeight, top: 0} as CSSProperties);
@@ -116,7 +122,7 @@ const FoodBanksMapComponent: React.FC = () => {
             setZoomLevel(_ => newZoom);
         }
         setCenter(newCenter);
-        refreshListOfFoodBanks().then();
+        refreshListOfFreeClinics().then();
     };
 
 
@@ -140,5 +146,5 @@ const FoodBanksMapComponent: React.FC = () => {
     )
 };
 
-export default FoodBanksMapComponent;
+export default FreeClinicsMapComponent;
 
