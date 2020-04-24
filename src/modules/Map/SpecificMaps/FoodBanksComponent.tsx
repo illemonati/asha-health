@@ -27,7 +27,7 @@ const FoodBanksMapComponent: React.FC = () => {
     const [center, setCenter] = useState(new LatLng(37.403944, -122.166903));
     const [zoomLevel, setZoomLevel] = useState(10);
     const [listOfFoodBanks, setListOfFoodBanks] = useState([] as any[]);
-    const [loadingMessage, setLoadingMessage] = useState("");
+    const [loadingMessage, setLoadingMessage] = useState("Loading List of Food Banks");
 
     const attribution = "";
 

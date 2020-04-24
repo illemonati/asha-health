@@ -6,14 +6,13 @@ import 'leaflet/dist/leaflet.css';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import L from 'leaflet';
-import {MapPoints} from "../MapPointFormat";
 import {
     getBrowserLatLng,
     getLatLngFromQuery,
     getZipFromLatLng
 } from "../map-utils";
-import {getFreeClinicsFromZip, getFullFreeClinicAddress} from "../FreeClinic";
-import {Typography} from "@material-ui/core";
+import {FreeClinicMapPoints, getFreeClinicsFromZip, getFullFreeClinicAddress} from "../FreeClinic";
+import {Box, Typography} from "@material-ui/core";
 import LoadingSnackBarComponent from "../LoadingSnackBar/LoadingSnackBarComponent";
 
 
@@ -25,11 +24,11 @@ L.Marker.prototype.options.icon = DefaultIcon;
 
 const FreeClinicsMapComponent: React.FC = () => {
 
-    const [mapPoints, setMapPoints] = useState([] as MapPoints);
+    const [mapPoints, setMapPoints] = useState([] as FreeClinicMapPoints);
     const [center, setCenter] = useState(new LatLng(37.403944, -122.166903));
     const [zoomLevel, setZoomLevel] = useState(10);
     const [listOfFreeClinics, setListOfFreeClinics] = useState([] as any[]);
-    const [loadingMessage, setLoadingMessage] = useState("");
+    const [loadingMessage, setLoadingMessage] = useState("Loading List of Clinics");
 
     const attribution = "";
 
@@ -84,14 +83,14 @@ const FreeClinicsMapComponent: React.FC = () => {
     useEffect(() => {
         const f = async () => {
             setLoadingMessage("Loading GPS Coords")
-            const npoints = [] as MapPoints;
+            const npoints = [] as FreeClinicMapPoints;
             for (const freeClinic of listOfFreeClinics) {
                 try {
                     const latLng = await getLatLngFromQuery(getFullFreeClinicAddress(freeClinic));
                     const point = {
-                        popUpString: freeClinic['name'],
                         lat: latLng!.lat!,
-                        lng: latLng!.lng!
+                        lng: latLng!.lng!,
+                        clinic: freeClinic
                     };
                     npoints.push(point);
                 } catch (e) {}
@@ -146,15 +145,34 @@ const FreeClinicsMapComponent: React.FC = () => {
                 />
                 {mapPoints?.map((mapPoint, i) => {
                     const coord = new LatLng(mapPoint.lat, mapPoint.lng);
+                    const clinic = mapPoint.clinic;
                     return (
                         <Marker position={coord} key={i}>
-                            <Popup>{mapPoint.popUpString}</Popup>
+                            <Popup>
+                                <Box>
+                                    <Typography variant="subtitle1">
+                                        {clinic.name}
+                                    </Typography>
+                                    <hr />
+                                    <Typography variant="subtitle2">
+                                        {getFullFreeClinicAddress(clinic)}
+                                    </Typography>
+                                    <Typography variant="subtitle2">
+                                        {clinic.telephone}
+                                    </Typography>
+                                    <hr />
+                                    <Typography variant="subtitle2">
+                                        {unescape(clinic.description)}
+                                    </Typography>
+                                    <hr />
+                                    <img src={clinic.image}
+                                         className="FreeClinicsMapComponentClinicImage"
+                                         alt={clinic.name} />
+                                </Box>
+                            </Popup>
                         </Marker>
                     )
                 })}
-                <div>
-                    <Typography>FEFEF</Typography>
-                </div>
             </Map>
         </div>
     )

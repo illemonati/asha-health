@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {MapPoint} from "./MapPointFormat";
 
 
 export type FreeClinics = FreeClinic[];
@@ -11,6 +12,12 @@ export interface FreeClinic {
     image:       string;
     description: string;
     telephone:   string;
+}
+
+export type FreeClinicMapPoints = FreeClinicMapPoint[];
+
+export interface FreeClinicMapPoint extends MapPoint {
+    clinic: FreeClinic
 }
 
 export interface Address {
