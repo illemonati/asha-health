@@ -3,6 +3,10 @@ image: node:13.6.0
 variables:
   PUBLIC_URL: "/asha-health"
 
+include:
+  - template: Dependency-Scanning.gitlab-ci.yml
+
+
 pages:
   stage: deploy
   script:
