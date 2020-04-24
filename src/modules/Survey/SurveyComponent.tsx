@@ -16,6 +16,8 @@ import firebase from 'firebase/app';
 import './styles.css';
 import ContactsInputComponent from "./ContactsInputComponent";
 import SurveyQuestionsComponent from "./SurveyQuestionsComponent";
+import {useSelector} from "react-redux";
+import UserProfile from "../../utils/UserProfile";
 
 
 interface SurveyComponentProps {
@@ -27,9 +29,10 @@ interface SurveyComponentProps {
 export default function SurveyComponent(props: SurveyComponentProps) {
     const [submitted, setSubmitted] = useState(false);
     const [questionResults, setQuestionResults] = useState([] as QuestionResults);
+    const userProfile = useSelector<any, UserProfile>(state => state.userProfileState);
     const [contacts, setContacts] = useState({
-        name: '',
-        email: '',
+        name: userProfile.name,
+        email: userProfile.email || '',
     });
 
     const [submitErrorDialogState, setSubmitErrorDialogState] = useState(false);

@@ -5,14 +5,15 @@ import {TextFieldQuestion} from "../QuestionsFormat";
 
 
 interface TextFieldInputComponentProps extends OptionProps {
-    question: TextFieldQuestion
+    question: TextFieldQuestion,
+    defaultValue?: string,
     color?: string
 }
 
 
 export default function TextfieldInputComponent(props: TextFieldInputComponentProps) {
 
-    const [val, setVal] = useState("");
+    const [val, setVal] = useState(props.defaultValue || '');
 
     const makeCallback = () => {
         props.setResultCallback({
@@ -36,12 +37,13 @@ export default function TextfieldInputComponent(props: TextFieldInputComponentPr
     return (
         <Box>
             <TextField multiline style={{width: "100%"}}
-                       /*
-                       //@ts-ignore */
+                /*
+                //@ts-ignore */
                        color={props.color || "primary"}
-                       label={props.question.textfieldLabel || "answer"} value={val}
+                       label={props.question.textfieldLabel || "answer"}
+                       value={val}
                        required={props.question.required}
-                       onChange={e => setVal(e.target.value)} />
+                       onChange={e => setVal(e.target.value)}/>
         </Box>
     )
 }

@@ -12,5 +12,9 @@
 
 
 .appBarTitle {
-    padding-left: 2vw;
+    text-align: center !important;
+}
+
+.mainAppBar {
+    align-items: center;
 }

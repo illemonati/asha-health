@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {
     AppBar,
     Box,
-    IconButton,
+    // IconButton,
     List,
     ListItem,
     ListItemText,
@@ -10,7 +10,7 @@ import {
     Toolbar,
     Typography
 } from "@material-ui/core";
-import MenuIcon from '@material-ui/icons/Menu';
+// import MenuIcon from '@material-ui/icons/Menu';
 import {PageLinks} from "../../utils/links";
 import {Link} from "react-router-dom";
 import './styles.css';
@@ -28,11 +28,11 @@ export default function NavDrawerComponent(props?: NavDrawerComponentProps) {
         <>
             <AppBar position="sticky" color='primary' className="mainAppBar">
                 <Toolbar>
-                    <IconButton className="menuIconButton" color="inherit" aria-label="menu" onClick={() => setDrawerOpen(!drawerOpen)}>
-                        <MenuIcon/>
-                    </IconButton>
+                    {/*<IconButton className="menuIconButton" color="inherit" aria-label="menu" onClick={() => setDrawerOpen(!drawerOpen)}>*/}
+                    {/*    <MenuIcon/>*/}
+                    {/*</IconButton>*/}
                     <Typography variant='h6' className="appBarTitle">
-                        Advocating for Self Health Awareness
+                        ASHA
                     </Typography>
                 </Toolbar>
             </AppBar>

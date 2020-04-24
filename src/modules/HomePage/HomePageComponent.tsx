@@ -1,9 +1,10 @@
 import React from "react";
 import {Box, Container, Typography} from "@material-ui/core";
 import {PageLinks} from "../../utils/links";
-import {Link} from "react-router-dom";
 import logoPng from '../../static-assets/ASHA_logo_2.png';
 import './styles.css';
+import MenuButtonsComponent from "../MenuButtons/MenuButtonsComponent";
+import menuButtons from "./HomePageMenuButtons.json";
 
 
 interface HomePageComponentProps {
@@ -27,16 +28,15 @@ export default function HomePageComponent(props: HomePageComponentProps) {
                     <br />
                     <br />
 
-                    {props.pageLinks?.map((pageLink, i) => {
-                        return(
-                            <Box key={i}>
-                                <Link to={pageLink.pageUrl}>{pageLink.pageName}</Link>
-                                <br />
-                                <br />
-                            </Box>
-                        )
-                    })}
-
+                    <Typography className="homePageTitle" variant="h4">
+                        Current SARS-CoV-2 news
+                    </Typography>
+                    <br />
+                    <Container maxWidth="sm">
+                        <Box>
+                            <MenuButtonsComponent menuButtons={menuButtons}/>
+                        </Box>
+                    </Container>
                 </Box>
             </Container>
         </div>

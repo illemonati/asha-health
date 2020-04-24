@@ -1,18 +1,15 @@
 import React from "react";
 import './App.css';
-import SurveyComponent from "./modules/Survey/SurveyComponent";
-import questions from './configs/questions.json';
 import firebaseConfig from './configs/firebase.json';
-import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
-import RiskCalculatorComponent from "./modules/RiskCalculator/RiskCalculatorComponent";
-import HomePageComponent from "./modules/HomePage/HomePageComponent";
+import {BrowserRouter as Router} from "react-router-dom";
 import pageLinks from "./configs/links.json";
-import riskCalculatorConfigs from './configs/riskCalculatorConfig.json';
 import NavDrawerComponent from "./modules/NavDrawer/NavDrawerComponent";
 import {Box} from "@material-ui/core";
 import {useSelector} from "react-redux";
 import SWUpdateSnackbarComponent from "./modules/SWUpdateSnackbar/SWUpdateSnackbarComponent";
 import {initFirebase} from "./firebase/auth";
+import BottomMenuBarComponent from "./modules/BottomMenuBar/BottomMenuBarComponent";
+import RouterComponent from "./Router";
 
 
 function App() {
@@ -22,21 +19,15 @@ function App() {
     return (
         <Router basename={process.env.PUBLIC_URL}>
             <div className="App">
-                <Box>
+                <Box className="AppBox">
                     <NavDrawerComponent pageLinks={pageLinks}/>
+                    <div className="AppMainComponent">
+                        <RouterComponent/>
+                    </div>
                     <br />
                     <br />
-                    <Switch>
-                        <Route path="/survey">
-                            <SurveyComponent questions={questions} dbCollectionName={'demo-survey-0'} />
-                        </Route>
-                        <Route path="/risk-calculator">
-                            <RiskCalculatorComponent configs={riskCalculatorConfigs}/>
-                        </Route>
-                        <Route path="/" exact>
-                            <HomePageComponent pageLinks={pageLinks}/>
-                        </Route>
-                    </Switch>
+                    <br />
+                    <BottomMenuBarComponent/>
                 </Box>
             </div>
             <SWUpdateSnackbarComponent waitingSW={waitingSW}/>
