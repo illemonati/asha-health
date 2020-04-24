@@ -3,9 +3,7 @@ import {Box, Container, Typography} from "@material-ui/core";
 import {PageLinks} from "../../utils/links";
 import logoPng from '../../static-assets/ASHA_logo_2.png';
 import './styles.css';
-import MenuButtonsComponent from "../MenuButtons/MenuButtonsComponent";
-import menuButtons from "./HomePageMenuButtons.json";
-
+import HealthRecommendationComponent from "./HealthRecommandation/HealthRecommendationComponent";
 
 interface HomePageComponentProps {
     pageLinks?: PageLinks
@@ -33,7 +31,7 @@ export default function HomePageComponent(props: HomePageComponentProps) {
                     <br />
                     <Container maxWidth="sm">
                         <Box>
-                            <MenuButtonsComponent menuButtons={menuButtons}/>
+                            <HealthRecommendationComponent />
                         </Box>
                     </Container>
                 </Box>

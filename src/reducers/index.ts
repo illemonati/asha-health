@@ -4,6 +4,7 @@ import {riskCalculatorComparisonInputsStateReducer, riskCalculatorInputsStateRed
 import serviceWorkerUpdateReducer from "./SWUpdate";
 import bottomMenuStateReducer from "./bottomMenuState";
 import userProfileStateReducer from './userProfileState';
+import healthRecommendationStateReducer from "./healthRecommendationState";
 
 
 
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
     riskCalculatorComparisonInputs: riskCalculatorComparisonInputsStateReducer,
     waitingSW: serviceWorkerUpdateReducer,
     bottomMenuState: bottomMenuStateReducer,
-    userProfileState: userProfileStateReducer
+    userProfileState: userProfileStateReducer,
+    healthRecommendationState: healthRecommendationStateReducer
 });
 
 
