@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from "react";
+import React, {useState} from "react";
 import {Box, Container, Grid, IconButton, Paper, Typography} from "@material-ui/core";
 import {useDispatch, useSelector} from "react-redux";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
