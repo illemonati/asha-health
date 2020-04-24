@@ -13,6 +13,8 @@ import {
     getZipFromLatLng
 } from "../map-utils";
 import {getFreeClinicsFromZip, getFullFreeClinicAddress} from "../FreeClinic";
+import {Typography} from "@material-ui/core";
+import LoadingSnackBarComponent from "../LoadingSnackBar/LoadingSnackBarComponent";
 
 
 let DefaultIcon = L.icon({
@@ -27,10 +29,14 @@ const FreeClinicsMapComponent: React.FC = () => {
     const [center, setCenter] = useState(new LatLng(37.403944, -122.166903));
     const [zoomLevel, setZoomLevel] = useState(10);
     const [listOfFreeClinics, setListOfFreeClinics] = useState([] as any[]);
+    const [loadingMessage, setLoadingMessage] = useState("");
+
+    const attribution = "";
 
 
     const refreshListOfFreeClinics = useCallback(
         async () => {
+            setLoadingMessage("Loading List of Clinics");
             try {
                 const zips = new Set<number>();
 
@@ -58,6 +64,7 @@ const FreeClinicsMapComponent: React.FC = () => {
                         });
                     }
                 }
+
             } catch (e) {
 
             }
@@ -76,6 +83,7 @@ const FreeClinicsMapComponent: React.FC = () => {
 
     useEffect(() => {
         const f = async () => {
+            setLoadingMessage("Loading GPS Coords")
             const npoints = [] as MapPoints;
             for (const freeClinic of listOfFreeClinics) {
                 try {
@@ -89,6 +97,7 @@ const FreeClinicsMapComponent: React.FC = () => {
                 } catch (e) {}
             }
             setMapPoints(npoints);
+            setLoadingMessage("");
         };
         f().then();
     }, [listOfFreeClinics]);
@@ -128,10 +137,12 @@ const FreeClinicsMapComponent: React.FC = () => {
 
     return (
         <div className="MapComponent" style={mapStyle}>
+            <LoadingSnackBarComponent message={loadingMessage} />
             <Map center={center} zoom={zoomLevel} className="MapComponentMainMap"
                  onViewportChanged={handleViewportChanged}>
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    attribution={attribution}
                 />
                 {mapPoints?.map((mapPoint, i) => {
                     const coord = new LatLng(mapPoint.lat, mapPoint.lng);
@@ -141,6 +152,9 @@ const FreeClinicsMapComponent: React.FC = () => {
                         </Marker>
                     )
                 })}
+                <div>
+                    <Typography>FEFEF</Typography>
+                </div>
             </Map>
         </div>
     )

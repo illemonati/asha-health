@@ -12,6 +12,7 @@ import {
     getFoodBankFromZip,
     getZipFromLatLng
 } from "../map-utils";
+import LoadingSnackBarComponent from "../LoadingSnackBar/LoadingSnackBarComponent";
 
 
 let DefaultIcon = L.icon({
@@ -26,18 +27,23 @@ const FoodBanksMapComponent: React.FC = () => {
     const [center, setCenter] = useState(new LatLng(37.403944, -122.166903));
     const [zoomLevel, setZoomLevel] = useState(10);
     const [listOfFoodBanks, setListOfFoodBanks] = useState([] as any[]);
+    const [loadingMessage, setLoadingMessage] = useState("");
+
+    const attribution = "";
 
 
     const refreshListOfFoodBanks = useCallback(
         async () => {
+            setLoadingMessage("Loading List of Food Banks");
             try {
                 const zips = new Set<number>();
 
-                for (let i = center.lat-0.1; i < center.lat+0.1; i+=0.1) {
-                    for (let j = center.lng-0.1; j < center.lng+0.1; j+=0.1) {
+                for (let i = center.lat - 0.1; i < center.lat + 0.1; i += 0.1) {
+                    for (let j = center.lng - 0.1; j < center.lng + 0.1; j += 0.1) {
                         try {
                             zips.add(await getZipFromLatLng(new LatLng(i, j)));
-                        } catch (e) {}
+                        } catch (e) {
+                        }
                     }
                 }
 
@@ -73,6 +79,7 @@ const FoodBanksMapComponent: React.FC = () => {
 
     useEffect(() => {
         setMapPoints((_) => {
+            setLoadingMessage("Loading GPS Coords");
             const npoints = [] as MapPoints;
             listOfFoodBanks.forEach((foodBank: any) => {
                 const point = {
@@ -83,6 +90,7 @@ const FoodBanksMapComponent: React.FC = () => {
                 npoints.push(point);
             });
 
+            setLoadingMessage("");
             return npoints;
         });
     }, [listOfFoodBanks]);
@@ -122,10 +130,12 @@ const FoodBanksMapComponent: React.FC = () => {
 
     return (
         <div className="MapComponent" style={mapStyle}>
+            <LoadingSnackBarComponent message={loadingMessage}/>
             <Map center={center} zoom={zoomLevel} className="MapComponentMainMap"
                  onViewportChanged={handleViewportChanged}>
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    attribution={attribution}
                 />
                 {mapPoints?.map((mapPoint, i) => {
                     const coord = new LatLng(mapPoint.lat, mapPoint.lng);
