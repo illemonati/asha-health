@@ -2,9 +2,15 @@ image: node:13.6.0
 
 variables:
   PUBLIC_URL: "/asha-health"
+  DAST_WEBSITE: https://illemonati.gitlab.io/asha-health
 
 include:
   - template: Dependency-Scanning.gitlab-ci.yml
+  - template: DAST.gitlab-ci.yml
+  - template: SAST.gitlab-ci.yml
+
+
+
 
 
 pages:
