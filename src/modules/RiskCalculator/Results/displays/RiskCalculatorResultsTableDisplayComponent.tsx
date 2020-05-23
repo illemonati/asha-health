@@ -20,7 +20,7 @@ export default function RiskCalculatorResultsTableDisplayComponent(props: RiskCa
                                 <TableCell align="left">Comparison Risk (%)</TableCell>
                             )}
                             <TableCell align="left">Population Average Risk</TableCell>
-                            <TableCell align="left">Model Accuracy</TableCell>
+                            {/*<TableCell align="left">Model Accuracy</TableCell>*/}
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -31,7 +31,7 @@ export default function RiskCalculatorResultsTableDisplayComponent(props: RiskCa
                                 <TableCell align="left">{calculateMortalityRisk(props.comparisonInputs).toFixed(2)}%</TableCell>
                             )}
                             <TableCell align="left">Average Population Risk is 0.13% or 1.3 per thousand</TableCell>
-                            <TableCell align="left">C-statistic = 0.73</TableCell>
+                            {/*<TableCell align="left">C-statistic = 0.73</TableCell>*/}
                         </TableRow>
                         <TableRow>
                             <TableCell>Risk of Cardiac Complications within 30 days</TableCell>
@@ -40,7 +40,7 @@ export default function RiskCalculatorResultsTableDisplayComponent(props: RiskCa
                                 <TableCell align="left">{calculateCardiacRisk(props.comparisonInputs).toFixed(2)}%</TableCell>
                             )}
                             <TableCell align="left">Average Population Risk is 0.29% or 2.9 per thousand</TableCell>
-                            <TableCell align="left">C-statistic = 0.69</TableCell>
+                            {/*<TableCell align="left">C-statistic = 0.69</TableCell>*/}
                         </TableRow>
                     </TableBody>
                 </Table>

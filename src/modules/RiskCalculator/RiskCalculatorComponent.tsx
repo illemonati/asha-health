@@ -115,9 +115,9 @@ export default function RiskCalculatorComponent(props: RiskCalculatorComponentPr
                     </Tabs>
                 </Paper>
                 <br/>
-                <Button variant="outlined" onClick={() => setComparisonModeState(!comparisonModeState)}>
-                    {(comparisonModeState) ? "Disable" : "Enable"} Comparison Mode
-                </Button>
+                {/*<Button variant="outlined" onClick={() => setComparisonModeState(!comparisonModeState)}>*/}
+                {/*    {(comparisonModeState) ? "Disable" : "Enable"} Comparison Mode*/}
+                {/*</Button>*/}
                 <br/>
                 <SwipeableViews index={tabVal} onChangeIndex={handleSwipe}>
                     <RiskCalculatorConfigComponent fields={configs}

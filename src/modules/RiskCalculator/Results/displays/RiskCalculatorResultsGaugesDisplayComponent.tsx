@@ -77,9 +77,21 @@ function createDiagram(yourRisk: number, averageRisk: number) {
         innerRadius: arcRadius,
         outerRadius: arcRadius + arcWidth
     });
+
+    // yourRisk = averageRisk + 1;
+    // yourRisk = averageRisk + 50;
+    // yourRisk = averageRisk;
+    // const calculatedRiskWith50AsAverage = (yourRisk + 50 - averageRisk);
+    const differenceFromAverage = yourRisk - averageRisk;
+    const scaledDiff = ((100) * (differenceFromAverage+ 4 * averageRisk)) / (8 * averageRisk) - 50;
+    // console.log(`${differenceFromAverage}, ${scaledDiff}`)
+
+
+    // console.log(calculatedRiskWith50AsAverage);
+
     const yourRiskPathData = arcGen({
         startAngle: -Math.PI/2,
-        endAngle: Math.PI*yourRisk/100-(Math.PI/2),
+        endAngle: Math.PI*((Math.max(Math.min(scaledDiff, 50), -50) + 50)/(100))-(Math.PI/2),
         innerRadius: arcRadius,
         outerRadius: arcRadius + arcWidth
     });
@@ -91,7 +103,7 @@ function createDiagram(yourRisk: number, averageRisk: number) {
         .attr('transform', `translate(${(arcRadius+arcWidth)}, ${1.5*(arcRadius+arcWidth)})`);
     svg.append('path')
         .attr('d', yourRiskPathData!)
-        .attr('fill', (yourRisk > averageRisk) ? 'red' : 'green')
+        .attr('fill', (yourRisk > averageRisk) ? 'red' : (yourRisk === averageRisk ? 'orange' : 'green'))
         .attr('transform', `translate(${(arcRadius+arcWidth)}, ${1.5*(arcRadius+arcWidth)})`);
     svg.append('text')
         .attr('x', (arcRadius+arcWidth)/2)
