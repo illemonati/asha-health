@@ -1,12 +1,13 @@
-
-import {combineReducers} from 'redux';
-import {riskCalculatorComparisonInputsStateReducer, riskCalculatorInputsStateReducer} from "./riskCalculatorInputs";
-import serviceWorkerUpdateReducer from "./SWUpdate";
-import bottomMenuStateReducer from "./bottomMenuState";
+import { combineReducers } from 'redux';
+import {
+    riskCalculatorComparisonInputsStateReducer,
+    riskCalculatorInputsStateReducer,
+} from './riskCalculatorInputs';
+import serviceWorkerUpdateReducer from './SWUpdate';
+import bottomMenuStateReducer from './bottomMenuState';
 import userProfileStateReducer from './userProfileState';
-import healthRecommendationStateReducer from "./healthRecommendationState";
-
-
+import healthRecommendationStateReducer from './healthRecommendationState';
+import systemConfigurationsReducer from './systemConfigurations';
 
 const rootReducer = combineReducers({
     riskCalculatorInputs: riskCalculatorInputsStateReducer,
@@ -14,8 +15,8 @@ const rootReducer = combineReducers({
     waitingSW: serviceWorkerUpdateReducer,
     bottomMenuState: bottomMenuStateReducer,
     userProfileState: userProfileStateReducer,
-    healthRecommendationState: healthRecommendationStateReducer
+    healthRecommendationState: healthRecommendationStateReducer,
+    systemConfigurations: systemConfigurationsReducer,
 });
-
 
 export default rootReducer;

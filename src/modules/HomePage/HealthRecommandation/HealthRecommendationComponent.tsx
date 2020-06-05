@@ -1,72 +1,93 @@
-import React, {useState} from "react";
-import {Box, Container, Grid, IconButton, Paper, Typography} from "@material-ui/core";
-import {useDispatch, useSelector} from "react-redux";
+import React, { useState } from 'react';
+import {
+    Box,
+    Container,
+    Grid,
+    IconButton,
+    Paper,
+    Typography,
+} from '@material-ui/core';
+import { useDispatch, useSelector } from 'react-redux';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import './styles.css';
 import healthRecommendations from './HealthRecommendations.json';
-import {updateHealthRecommendationState} from "../../../actions/healthRecommendationState";
+import { updateHealthRecommendationState } from '../../../actions/healthRecommendationState';
 
+interface HealthRecommendationComponentProps {}
 
-interface HealthRecommendationComponentProps {
-
-}
-
-const HealthRecommendationComponent = (props: HealthRecommendationComponentProps) => {
-
-    const [healthRecommendationIndex, setHealthRecommendationIndex] = useState(useSelector<any, number>(state => state.healthRecommendationState));
+const HealthRecommendationComponent = (
+    props: HealthRecommendationComponentProps
+) => {
+    const [healthRecommendationIndex, setHealthRecommendationIndex] = useState(
+        useSelector<any, number>((state) => state.healthRecommendationState)
+    );
     const dispatch = useDispatch();
     const handleChange = (newVal: number) => {
-
         if (newVal < 0) {
             newVal = healthRecommendations.length - 1;
         } else if (newVal > healthRecommendations.length - 1) {
             newVal = 0;
         }
 
-        setHealthRecommendationIndex(newVal)
+        setHealthRecommendationIndex(newVal);
         dispatch(updateHealthRecommendationState(newVal));
     };
     return (
         <Box className="HealthRecommendationComponent">
-            <br/>
-            <br/>
+            <br />
+            <br />
             <Paper variant="outlined">
+                <br />
+                <br />
 
-                <Typography variant="h4">
-                    Health Facts
-                </Typography>
-                <br/>
-                <br/>
-                <Grid container
-                      alignItems="center"
-                      justify="center"
-                >
-                    <Grid item xs={2} className="HealthRecommendationComponentChangeButtonGrid">
-                        <IconButton onClick={() => handleChange(healthRecommendationIndex - 1)}
+                <Typography variant="h4">Health Facts</Typography>
+                <br />
+                <br />
+                <Grid container alignItems="center" justify="center">
+                    <Grid
+                        item
+                        xs={2}
+                        className="HealthRecommendationComponentChangeButtonGrid"
+                    >
+                        <IconButton
+                            onClick={() =>
+                                handleChange(healthRecommendationIndex - 1)
+                            }
                         >
-                            <ArrowBackIcon/>
+                            <ArrowBackIcon />
                         </IconButton>
                     </Grid>
                     <Grid item xs={8}>
                         <Container className="HealthRecommendationComponentMainContainer">
                             <h4>
-                                {healthRecommendationIndex}. {healthRecommendations[healthRecommendationIndex]}
+                                {healthRecommendationIndex}.{' '}
+                                {
+                                    healthRecommendations[
+                                        healthRecommendationIndex
+                                    ]
+                                }
                             </h4>
                         </Container>
                     </Grid>
-                    <Grid item xs={2} className="HealthRecommendationComponentChangeButtonGrid">
-                        <IconButton onClick={() => handleChange(healthRecommendationIndex + 1)}>
-                            <ArrowForwardIcon/>
+                    <Grid
+                        item
+                        xs={2}
+                        className="HealthRecommendationComponentChangeButtonGrid"
+                    >
+                        <IconButton
+                            onClick={() =>
+                                handleChange(healthRecommendationIndex + 1)
+                            }
+                        >
+                            <ArrowForwardIcon />
                         </IconButton>
                     </Grid>
                 </Grid>
-                <br/>
+                <br />
             </Paper>
-
         </Box>
-    )
-}
+    );
+};
 
 export default HealthRecommendationComponent;
-

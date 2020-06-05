@@ -4,17 +4,17 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { createStore } from 'redux';
-import rootReducer from "./reducers";
-import { Provider } from "react-redux";
-import { persistStore, persistReducer } from 'redux-persist'
-import {PersistGate} from "redux-persist/integration/react";
-import {swNewUpdate} from "./actions/SWUpdate";
+import rootReducer from './reducers';
+import { Provider } from 'react-redux';
+import { persistStore, persistReducer } from 'redux-persist';
+import { PersistGate } from 'redux-persist/integration/react';
+import { swNewUpdate } from './actions/SWUpdate';
 import localForage from 'localforage';
 
 localForage.config({
     name: 'asha-health',
     storeName: 'asha_health',
-    description: 'storage for the asha-health webapp'
+    description: 'storage for the asha-health webapp',
 });
 
 const persistConfig = {
@@ -23,14 +23,13 @@ const persistConfig = {
     // blacklist: ['waitingSW']
 };
 
-
 const persistedReducer = persistReducer(persistConfig, rootReducer);
-
 
 /* eslint-disable no-underscore-dangle */
 const store = createStore(
     persistedReducer,
-    (window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__()
+    (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
+        (window as any).__REDUX_DEVTOOLS_EXTENSION__()
 );
 /* eslint-enable */
 
@@ -42,7 +41,8 @@ ReactDOM.render(
             <App />
         </PersistGate>
     </Provider>,
-    document.getElementById('root'));
+    document.getElementById('root')
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
@@ -55,7 +55,5 @@ serviceWorker.register({
             store.dispatch(swNewUpdate(registration.waiting));
         }
     },
-    onSuccess: (registration) => {
-    }
+    onSuccess: (registration) => {},
 });
-
