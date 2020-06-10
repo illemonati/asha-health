@@ -5,8 +5,7 @@ body {
         'Helvetica Neue', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: #212121;
-    color: #ffffff;
+    background-color: white;
 }
 
 * {
@@ -15,7 +14,7 @@ body {
 }
 
 *::-webkit-scrollbar {
-    width: 0px;
+    width: 0;
     background: transparent;
 }
 

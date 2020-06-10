@@ -1,12 +1,12 @@
-import React, { useEffect, useRef } from 'react';
-import { RiskCalculatorResultsComponentProps } from '../shared';
+import React, {useEffect, useRef} from 'react';
+import {RiskCalculatorResultsComponentProps} from '../shared';
 import * as d3 from 'd3';
-import { Grid, Paper, Typography } from '@material-ui/core';
-import { calculateCardiacRisk, calculateMortalityRisk } from '../../utils';
+import {Grid, Paper, Theme, Typography} from '@material-ui/core';
+import {calculateCardiacRisk, calculateMortalityRisk} from '../../utils';
+import {useTheme} from '@material-ui/core/styles';
 
 export default function RiskCalculatorResultsGaugesDisplayComponent(
-    props: RiskCalculatorResultsComponentProps
-) {
+    props: RiskCalculatorResultsComponentProps) {
     return (
         <div className="RiskCalculatorResultsGaugesDisplayComponent">
             <Grid container spacing={2} className="GaugeGrid">
@@ -67,21 +67,23 @@ interface DiagramProps {
 
 function DiagramComponent(props: DiagramProps) {
     const diagramNode = useRef<SVGSVGElement | null>(null);
+    const theme = useTheme();
     useEffect(() => {
-        const diagram = createDiagram(props.yourRisk, props.averageRisk);
+        const diagram = createDiagram(props.yourRisk, props.averageRisk, theme);
         diagramNode.current!.innerHTML = diagram.innerHTML;
         diagramNode.current!.style.width = diagram.style.width;
     });
     return (
         <div>
             <Typography variant="subtitle1">{props.name}</Typography>
-            <br />
-            <svg ref={diagramNode} />
+            <br/>
+            <svg ref={diagramNode}/>
         </div>
     );
 }
 
-function createDiagram(yourRisk: number, averageRisk: number) {
+function createDiagram(yourRisk: number, averageRisk: number, theme: Theme) {
+
     const svg = d3.create('svg');
     const arcRadius = 50;
     const arcWidth = 15;
@@ -117,7 +119,7 @@ function createDiagram(yourRisk: number, averageRisk: number) {
         .attr('d', outlinePathData!)
         .attr('fill-opacity', 0)
         .attr('stroke-opacity', 1)
-        .attr('stroke', 'blue')
+        .attr('stroke', theme.palette.primary.main)
         .attr(
             'transform',
             `translate(${arcRadius + arcWidth}, ${
@@ -129,10 +131,10 @@ function createDiagram(yourRisk: number, averageRisk: number) {
         .attr(
             'fill',
             yourRisk > averageRisk
-                ? 'red'
+                ? theme.palette.error.main
                 : yourRisk === averageRisk
-                ? 'orange'
-                : 'green'
+                ? theme.palette.warning.main
+                : theme.palette.success.main
         )
         .attr(
             'transform',
@@ -143,10 +145,12 @@ function createDiagram(yourRisk: number, averageRisk: number) {
     svg.append('text')
         .attr('x', (arcRadius + arcWidth) / 2)
         .attr('y', (arcRadius + arcWidth) * 2)
+        .attr('fill', theme.palette.text.primary)
         .text(yourRisk.toFixed(4) + '%');
     svg.append('text')
         .attr('x', (arcRadius + arcWidth) * 0.2)
         .attr('y', (arcRadius + arcWidth) * 0.25)
+        .attr('fill', theme.palette.text.primary)
         .text(yourRisk > averageRisk ? 'Above Average' : 'Below Average');
     const node = svg.node()!;
     node.style.width = `${(arcWidth + arcRadius) * 2}px`;

@@ -1,16 +1,18 @@
-import SystemConfigurations from './../utils/SystemConfigurations';
+import SystemConfigurations, {SystemFont} from './../utils/SystemConfigurations';
 
 const defaultConfig = {
     darkMode: true,
+    systemFont: SystemFont.Roboto,
 };
 
 export default function systemConfigurationsReducer(
     state = defaultConfig,
     action: any
 ): SystemConfigurations {
+
     switch (action.type) {
         case 'UPDATE_SYSTEM_CONFIGURATIONS':
-            return action.payload;
+            return {...defaultConfig, ...action.payload};
         default:
             return state;
     }

@@ -4,7 +4,7 @@ import firebaseConfig from './configs/firebase.json';
 import { BrowserRouter as Router } from 'react-router-dom';
 import pageLinks from './configs/links.json';
 import NavDrawerComponent from './modules/NavDrawer/NavDrawerComponent';
-import { Box, ThemeProvider, createMuiTheme } from '@material-ui/core';
+import {Box, ThemeProvider, createMuiTheme, CssBaseline} from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import SWUpdateSnackbarComponent from './modules/SWUpdateSnackbar/SWUpdateSnackbarComponent';
 import { initFirebase } from './firebase/auth';
@@ -26,20 +26,21 @@ function App() {
             primary: {
                 main: '#039be5',
             },
+            background: {
+                default: systemConfigurations.darkMode ? '#212121' : '#ffffff',
+                paper: systemConfigurations.darkMode ? '#333333' : '#ffffff'
+            }
+        },
+        typography: {
+            fontFamily: systemConfigurations.systemFont,
         },
     });
 
-    if (systemConfigurations.darkMode) {
-        document.body.style.backgroundColor = '#212121';
-        document.body.style.color = '#ffffff';
-    } else {
-        document.body.style.backgroundColor = '#ffffff';
-        document.body.style.color = '#212121';
-    }
 
     initFirebase(firebaseConfig);
     return (
         <ThemeProvider theme={theme}>
+            <CssBaseline/>
             <Router basename={process.env.PUBLIC_URL}>
                 <div className="App">
                     <Box className="AppBox">
