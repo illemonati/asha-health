@@ -115,8 +115,15 @@ function createDiagram(yourRisk: number, averageRisk: number, theme: Theme) {
         innerRadius: arcRadius,
         outerRadius: arcRadius + arcWidth,
     });
+
+
+
+
+
+
     svg.append('path')
         .attr('d', outlinePathData!)
+        .attr('stroke-width', 4)
         .attr('fill-opacity', 0)
         .attr('stroke-opacity', 1)
         .attr('stroke', theme.palette.primary.main)
@@ -142,6 +149,35 @@ function createDiagram(yourRisk: number, averageRisk: number, theme: Theme) {
                 1.5 * (arcRadius + arcWidth)
             })`
         );
+
+    const marks = [0, 1, 2, 3, 4];
+
+    marks.forEach((mark, i) => {
+
+        const markData = arcGen({
+            startAngle: -Math.PI / 2,
+            endAngle: (-Math.PI / 2) + (Math.PI / 4) * i,
+            innerRadius: arcRadius,
+            outerRadius: arcRadius + arcWidth,
+        });
+
+        svg.append('path')
+            .attr('d', markData!)
+            .attr('fill-opacity', 0)
+            .attr('stroke-opacity', 1)
+            .attr('stroke-width', 4)
+            .attr(
+                'stroke',
+                theme.palette.primary.main
+            )
+            .attr(
+                'transform',
+                `translate(${arcRadius + arcWidth}, ${
+                    1.5 * (arcRadius + arcWidth)
+                })`
+            );
+    });
+
     svg.append('text')
         .attr('x', (arcRadius + arcWidth) / 2)
         .attr('y', (arcRadius + arcWidth) * 2)
