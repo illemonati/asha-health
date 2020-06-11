@@ -1,5 +1,8 @@
 import React from 'react';
 import './App.css';
+import 'typeface-roboto';
+import 'typeface-inconsolata';
+import '@openfonts/comic-neue_latin';
 import firebaseConfig from './configs/firebase.json';
 import { BrowserRouter as Router } from 'react-router-dom';
 import pageLinks from './configs/links.json';

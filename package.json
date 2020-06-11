@@ -8,6 +8,7 @@
     "@material-ui/core": "^4.9.7",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/pickers": "^3.2.10",
+    "@openfonts/comic-neue_latin": "^1.0.2",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -43,6 +44,8 @@
     "react-swipeable-views": "^0.13.9",
     "redux": "^4.0.5",
     "redux-persist": "^6.0.0",
+    "typeface-inconsolata": "^0.0.72",
+    "typeface-roboto": "^0.0.75",
     "typescript": "~3.7.2"
   },
   "scripts": {
