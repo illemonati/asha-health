@@ -2,7 +2,7 @@ import SystemConfigurations, {SystemFont} from './../utils/SystemConfigurations'
 
 const defaultConfig = {
     darkMode: true,
-    systemFont: SystemFont.Roboto,
+    systemFont: SystemFont.ComicNeue,
 };
 
 export default function systemConfigurationsReducer(
