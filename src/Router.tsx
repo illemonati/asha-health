@@ -1,25 +1,30 @@
 import * as React from 'react';
-import LifeStyleComponent from './modules/LifeStyle/LifeStyleComponent';
-import HealthComponent from './modules/Health/HealthComponent';
-import SettingsComponent from './modules/Settings/SettingsComponent';
-import LifeStyleResourcesComponent from './modules/LifeStyle/LifeStyleResources/LifeStyleResourcesComponent';
-import NearMeComponent from './modules/Health/NearMe/NearMeComponent';
+import {lazy, Suspense} from 'react';
 import riskCalculatorConfigs from './configs/riskCalculatorConfig.json';
-import RiskCalculatorComponent from './modules/RiskCalculator/RiskCalculatorComponent';
-import HomePageComponent from './modules/HomePage/HomePageComponent';
-import SurveyComponent from './modules/Survey/SurveyComponent';
 import questions from './configs/questions.json';
 import { Switch, Route } from 'react-router-dom';
 import pageLinks from './configs/links.json';
-import MyProfileComponent from './modules/Settings/MyProfile/MyProfileComponent';
-import MapComponent from './modules/Map/MapComponent';
-import FoodBanksMapComponent from './modules/Map/SpecificMaps/FoodBanksComponent';
-import FreeClinicsMapComponent from './modules/Map/SpecificMaps/FreeClinicsComponent';
-import SystemConfigurationComponent from './modules/Settings/SystemConfiguration/SystemConfigurationComponent';
+
+
+const LifeStyleComponent = lazy(() => import('./modules/LifeStyle/LifeStyleComponent'));
+const HealthComponent = lazy(() => import('./modules/Health/HealthComponent'));
+const SettingsComponent = lazy(() => import('./modules/Settings/SettingsComponent'));
+const LifeStyleResourcesComponent = lazy(() => import('./modules/LifeStyle/LifeStyleResources/LifeStyleResourcesComponent'));
+const NearMeComponent = lazy(() => import('./modules/Health/NearMe/NearMeComponent'));
+const RiskCalculatorComponent = lazy(() => import('./modules/RiskCalculator/RiskCalculatorComponent'));
+const HomePageComponent = lazy(() => import('./modules/HomePage/HomePageComponent'));
+const SurveyComponent = lazy(() => import('./modules/Survey/SurveyComponent'));
+const MyProfileComponent = lazy(() => import('./modules/Settings/MyProfile/MyProfileComponent'));
+const MapComponent = lazy(() => import('./modules/Map/MapComponent'));
+const FoodBanksMapComponent = lazy(() => import('./modules/Map/SpecificMaps/FoodBanksComponent'));
+const FreeClinicsMapComponent = lazy(() => import('./modules/Map/SpecificMaps/FreeClinicsComponent'));
+const SystemConfigurationComponent = lazy(() => import('./modules/Settings/SystemConfiguration/SystemConfigurationComponent'));
+
+
 
 export default function RouterComponent() {
     return (
-        <>
+        <Suspense fallback={<></>}>
             <Switch>
                 {/* Demo Survey */}
                 <Route path="/survey" excat>
@@ -75,6 +80,6 @@ export default function RouterComponent() {
                     <HomePageComponent pageLinks={pageLinks} />
                 </Route>
             </Switch>
-        </>
+        </Suspense>
     );
 }
