@@ -6,7 +6,7 @@ import './styles.css';
 export default function OssAttributionsComponent() {
     return (
         <div className="OssAttributionsComponent">
-            <Container>
+            <Container maxWidth="md">
                 <pre className='OssAttributionsComponentPre'>
                     {attributionsText.text}
                 </pre>
