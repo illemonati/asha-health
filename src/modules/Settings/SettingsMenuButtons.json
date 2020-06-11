@@ -4,27 +4,11 @@
         "linkTo": "/settings/my-profile"
     },
     {
-        "buttonText": "Trending Now",
-        "linkTo": "#"
-    },
-    {
-        "buttonText": "Symptom Library",
-        "linkTo": "#"
-    },
-    {
-        "buttonText": "Past Assessments",
-        "linkTo": "#"
-    },
-    {
-        "buttonText": "All Surveys",
-        "linkTo": "#"
-    },
-    {
-        "buttonText": "Feedback",
-        "linkTo": "#"
-    },
-    {
         "buttonText": "Configuration",
         "linkTo": "/settings/system-configuration"
+    },
+    {
+        "buttonText": "Attributions",
+        "linkTo": "/settings/oss-attributions"
     }
 ]

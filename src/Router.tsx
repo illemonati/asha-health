@@ -19,6 +19,7 @@ const MapComponent = lazy(() => import('./modules/Map/MapComponent'));
 const FoodBanksMapComponent = lazy(() => import('./modules/Map/SpecificMaps/FoodBanksComponent'));
 const FreeClinicsMapComponent = lazy(() => import('./modules/Map/SpecificMaps/FreeClinicsComponent'));
 const SystemConfigurationComponent = lazy(() => import('./modules/Settings/SystemConfiguration/SystemConfigurationComponent'));
+const OssAttributionsComponent = lazy(() => import('./modules/Settings/OssAttributions/OssAttributionsComponent'));
 
 
 
@@ -64,6 +65,9 @@ export default function RouterComponent() {
                 </Route>
                 <Route path="/settings/system-configuration" exact>
                     <SystemConfigurationComponent />
+                </Route>
+                <Route path="/settings/oss-attributions" exact>
+                    <OssAttributionsComponent />
                 </Route>
 
                 {/* Map */}
