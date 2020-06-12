@@ -8,10 +8,6 @@ const NearMeMenuButtons = [
     {
         buttonText: "Food Banks",
         linkTo: "/map/food-banks/"
-    },
-    {
-        buttonText: "Mobile Showers",
-        linkTo: "#"
     }
 ] as MenuButtons;
 
