@@ -52,6 +52,7 @@ const parseHTMLToFreeClinics = async (html: string) : Promise<FreeClinics> => {
     rawClinics.forEach(rawClinic => {
         try {
             const clinic = JSON.parse(rawClinic.firstChild!.textContent!);
+            clinic['description'] = clinic['description'].trim().replace(/&nbsp;/gi,'');
             if (clinic.hasOwnProperty('@type') && clinic['@type'] === 'LocalBusiness') {
                 clinics.push(clinic as FreeClinic);
             }
