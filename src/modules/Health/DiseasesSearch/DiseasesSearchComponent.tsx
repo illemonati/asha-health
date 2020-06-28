@@ -12,6 +12,7 @@ import {
     ListItem,
     ListItemText,
     ListItemSecondaryAction,
+    Switch,
 } from "@material-ui/core";
 import Disease from "../../../utils/Disease";
 import DiseasesSearchDiseaseInfoComponent from "./DiseasesSearchDiseaseInfo/DiseasesSearchDiseaseInfoComponent";
@@ -23,10 +24,16 @@ export default () => {
     const [results, setResults] = useState([] as (string | number)[][]);
     const [infoDialogState, setInfoDialogState] = useState([] as boolean[]);
     const [limit, setLimit] = useState(10);
+    const [useAnd, setUseAnd] = useState(false);
 
     const handleQueryChange = (e: ChangeEvent<HTMLInputElement>) => {
         const newQuery = e.currentTarget.value;
         setQuery(() => newQuery);
+    };
+
+    const handleUseAndChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const newState = e.currentTarget.checked;
+        setUseAnd(() => newState);
     };
 
     const handleLimitChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -63,7 +70,7 @@ export default () => {
     ) => {
         const endpoint = "https://asha-api.tioft.tech/diseases";
 
-        if (fieldsUsed.length < 1 || limit < 1) {
+        if (fieldsUsed.length < 1 || limit < 1 || query.length < 1) {
             setResults([]);
             return;
         }
@@ -75,6 +82,7 @@ export default () => {
                 query: query,
                 fields: fieldsUsed,
                 limit: limit,
+                useAnd: useAnd,
             }),
         });
         const res = await resp.json();
@@ -97,7 +105,7 @@ export default () => {
             .then()
             .catch((e) => {});
         // eslint-disable-next-line
-    }, [query, fieldsUsed, limit]);
+    }, [query, fieldsUsed, limit, useAnd]);
 
     return (
         <div className="DiseasesSearch">
@@ -130,6 +138,24 @@ export default () => {
                                     onChange={handleLimitChange}
                                     label="Limit"
                                     fullWidth
+                                />
+                            </Grid>
+                            <Grid
+                                item
+                                container
+                                xs={12}
+                                alignItems="flex-start"
+                                alignContent="flex-start"
+                            >
+                                <FormControlLabel
+                                    control={
+                                        <Switch
+                                            checked={useAnd}
+                                            onChange={handleUseAndChange}
+                                            color="primary"
+                                        />
+                                    }
+                                    label="Use Conjunction"
                                 />
                             </Grid>
                             <Grid item xs={12}>
