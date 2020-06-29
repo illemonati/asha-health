@@ -13,6 +13,7 @@ import {
     ListItemText,
     ListItemSecondaryAction,
     Switch,
+    InputAdornment,
 } from "@material-ui/core";
 import Disease from "../../../utils/Disease";
 import DiseasesSearchDiseaseInfoComponent from "./DiseasesSearchDiseaseInfo/DiseasesSearchDiseaseInfoComponent";
@@ -137,6 +138,13 @@ export default () => {
                                     value={limit}
                                     onChange={handleLimitChange}
                                     label="Limit"
+                                    InputProps={{
+                                        endAdornment: (
+                                            <InputAdornment position="end">
+                                                Entries
+                                            </InputAdornment>
+                                        ),
+                                    }}
                                     fullWidth
                                 />
                             </Grid>
