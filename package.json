@@ -26,7 +26,7 @@
     "@types/react-scroll": "^1.5.4",
     "@types/react-swipeable-views": "^0.13.0",
     "@types/redux": "^3.6.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "d3": "^5.15.1",
     "date-fns": "^2.0.0-beta.5",
     "fast-xml-parser": "^3.16.0",
